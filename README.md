@@ -140,4 +140,12 @@ GamePage  -- GameCard: uses
 MyHomePage  -- GameCard: uses
 
 LibraryPage  -- GameCard: uses
+
+SplashScreen -- MyHomePage: uses
+
+MyHomePage -- ProfilePage: uses
+
+MyHomePage -- LibraryPage: uses
+
+MyHomePage -- GamePage: uses
 ```
