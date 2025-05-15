@@ -135,8 +135,6 @@ classDiagram
 
 GamePage  -- Videojuego: uses
 
-GamePage  -- GameCard: uses
-
 MyHomePage  -- GameCard: uses
 
 LibraryPage  -- GameCard: uses
