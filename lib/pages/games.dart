@@ -156,9 +156,10 @@ class _GamePage extends State<GamePage> {
                   ),
                   trailing: IconButton(
                     onPressed: () => _toggleIcon(index),
-                    icon: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                    ),
+                    icon:
+                        isFavorite
+                            ? const Icon(Icons.favorite, color: Colors.red)
+                            : const Icon(Icons.favorite_border),
                   ),
                 );
               },

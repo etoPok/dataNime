@@ -18,7 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MyHomePage(title: "Inicio")),
+          MaterialPageRoute(
+            builder: (context) => MyHomePage(title: "Game Gauge"),
+          ),
         );
       }
     });
