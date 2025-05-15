@@ -43,8 +43,9 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 - **Interfaz de usuario atractiva**: Diseño moderno y atractivo con uso de imágenes, íconos y tarjetas informativas. 
 ## Recursos generados 
 - [Enlace del proyecto en github](https://github.com/xWTomasWx/VideogameRating)
-- 
-
+- [Enlace presentación](https://drive.google.com/file/d/1X0jYLj_HepNChIGcx9ltIi3TE5Sxsyjs/view?usp=sharing)
+- [Enlace video]()
+- **Diagrama de clases:**
 ``` mermaid 
 classDiagram
     class  Videojuego  {
