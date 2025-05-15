@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       SizedBox(height: 32),
                       ClipOval(
                         child: Image.asset(
-                          'assets/perfil.jpg', // Asegúrate de tener esta imagen en tus assets
+                          'assets/perfil.jpg',
                           width: 150,
                           height: 150,
                           fit: BoxFit.cover,
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: <Widget>[
                       SizedBox(
                         height: 80,
-                        width: 200,
+                        width: 180,
                         child: Card(
                           color: Colors.deepPurple[100],
                           child: Center(
@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(
                         height: 80,
-                        width: 200,
+                        width: 180,
                         child: Card(
                           color: Colors.deepPurple[100],
                           child: Center(
@@ -91,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(
                         height: 80,
-                        width: 200,
+                        width: 180,
                         child: Card(
                           color: Colors.deepPurple[100],
                           child: Center(
