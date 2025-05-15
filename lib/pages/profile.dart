@@ -10,38 +10,57 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.deepPurple[200],
         title: Text(widget.title),
       ),
+      backgroundColor: Colors.deepPurple[50],
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            SizedBox(height: 32),
+            ClipOval(
+              child: Image.asset(
+                'assets/perfil.jpg', // Asegúrate de tener esta imagen en tus assets
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 16),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'Balatro Balatrez',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+            Text('balatrez@gmail.com', style: TextStyle(fontSize: 14)),
+            SizedBox(height: 96),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  'Juegos gustado\n23',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Juegos por jugar\n10',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+                Text(
+                  'Juegos jugados\n48',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
     );
   }
 }

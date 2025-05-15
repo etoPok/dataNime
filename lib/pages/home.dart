@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:videogame_rating/pages/profile.dart';
 import 'package:videogame_rating/pages/games.dart';
+import 'package:videogame_rating/pages/library.dart';
+import 'package:flutter/services.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -12,27 +14,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-  );
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Home', style: optionStyle),
-    Text('Index 1: Business', style: optionStyle),
-    Text('Index 2: School', style: optionStyle),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.deepPurple[200],
         title: Text(widget.title),
         leading: Builder(
           builder: (context) {
@@ -45,51 +31,60 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      body: Center(child: _widgetOptions[_selectedIndex]),
+      backgroundColor: Colors.deepPurple[50],
+      body: Center(),
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
+        backgroundColor: Colors.deepPurple[100],
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text('Drawer Header'),
+            const SizedBox(
+              height: 96,
+              child: DrawerHeader(
+                decoration: BoxDecoration(color: Colors.white),
+                child: Text('Menú'),
+              ),
             ),
+
             ListTile(
-              title: const Text('Home'),
-              selected: _selectedIndex == 0,
+              title: const Text('Inicio'),
               onTap: () {
-                // Update the state of the app
-                _onItemTapped(0);
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Profile'),
-              selected: _selectedIndex == 1,
+              title: const Text('Perfil'),
               onTap: () {
-                // Update the state of the app
-                Navigator.of(
-                  context).push(
-                    MaterialPageRoute(builder: (context) => const ProfilePage(title: 'Perfil',)),
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(title: 'Perfil'),
+                  ),
                 );
-                // Then close the drawer
-                //Navigator.pop(context);
               },
             ),
             ListTile(
-              title: const Text('Games'),
-              selected: _selectedIndex == 2,
+              title: const Text('Explorar juegos'),
               onTap: () {
-                // Update the state of the app
+                Navigator.pop(context);
                 Navigator.of(
-                  context).push(
-                    MaterialPageRoute(builder: (context) => const GamesPage()),
+                  context,
+                ).push(MaterialPageRoute(builder: (context) => GamePage()));
+              },
+            ),
+            ListTile(
+              title: const Text('Mi blibioteca'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const LibraryPage()),
                 );
+              },
+            ),
+            ListTile(
+              title: const Text('Salir'),
+              onTap: () {
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
               },
             ),
           ],
