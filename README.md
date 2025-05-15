@@ -45,93 +45,93 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 - [Enlace del proyecto en github](https://github.com/xWTomasWx/VideogameRating)
 - 
 
-``` mermaid classDiagram
+``` mermaid 
+classDiagram
+    class  Videojuego  {
 
-class  Videojuego  {
+        +String nombre
 
-+String nombre
+        +String genero
 
-+String genero
+        +double calificacion
 
-+double calificacion
+        +List~String~  plataformas
 
-+List~String~  plataformas
+        +int anio
 
-+int anio
+        +Videojuego(nombre, genero, calificacion, plataformas, anio)
 
-+Videojuego(nombre, genero, calificacion, plataformas, anio)
+    }
 
-}
+    class  GamePage  {
 
-class  GamePage  {
+        -List~Videojuego~  allVideojuegos
 
--List~Videojuego~  allVideojuegos
+        -List~Videojuego~  filteredVideojuegos
 
--List~Videojuego~  filteredVideojuegos
+        -TextEditingController searchController
 
--TextEditingController searchController
+        -bool _sortByRatingDescending
 
--bool _sortByRatingDescending
+        -List~bool~ _isFavoriteList
 
--List~bool~ _isFavoriteList
+        +initState()
 
-+initState()
+        -_filterVideojuegos(String query)
 
--_filterVideojuegos(String query)
+        -_sortFilteredVideojuegos()
 
--_sortFilteredVideojuegos()
+        -_toggleIcon(int i)
 
--_toggleIcon(int i)
+        +build(BuildContext context)
 
-+build(BuildContext context)
+    }
 
-}
+    class  MyHomePage  {
 
-class  MyHomePage  {
+        +String title
 
-+String title
+        +build(BuildContext context)
 
-+build(BuildContext context)
+    }
 
-}
+    class  LibraryPage  {
 
-class  LibraryPage  {
+        +build(BuildContext context)
 
-+build(BuildContext context)
+    }
 
-}
+    class  ProfilePage  {
 
-class  ProfilePage  {
+        +String title
 
-+String title
+        +build(BuildContext context)
 
-+build(BuildContext context)
+    }
 
-}
+    class  SplashScreen  {
 
-class  SplashScreen  {
+        +String title
 
-+String title
+        +initState()
 
-+initState()
+        +build(BuildContext context)
 
-+build(BuildContext context)
+    }
 
-}
+    class  GameCard  {
 
-class  GameCard  {
+        +String imageUrl
 
-+String imageUrl
+        +String gameName
 
-+String gameName
+        +double rating
 
-+double rating
+        +GameCard(imageUrl, gameName, rating)
 
-+GameCard(imageUrl, gameName, rating)
+        +build(BuildContext context)
 
-+build(BuildContext context)
-
-}
+    }
 
 GamePage  -- Videojuego: uses
 
