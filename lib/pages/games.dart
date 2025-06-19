@@ -1,130 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/entitys/videogame.dart';
+import 'package:videogame_rating/domain/entities/videogame.dart';
+import 'package:videogame_rating/data/services/database_helper.dart';
+import 'package:videogame_rating/widget/app_drawer.dart';
+import 'package:videogame_rating/widget/game_preview.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
+  static const routeName = '/games';
+
   @override
-  State<GamePage> createState() => _GamePage();
+  State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePage extends State<GamePage> {
-  List<Videojuego> allVideojuegos = [
-    Videojuego(
-      nombre: 'The Legend of Zelda: Tears of the Kingdom',
-      genero: 'Aventura',
-      calificacion: 9.8,
-      plataformas: ['Nintendo Switch'],
-      anio: 2023,
-    ),
-    Videojuego(
-      nombre: 'Red Dead Redemption 2',
-      genero: 'Acción-Aventura',
-      calificacion: 9.7,
-      plataformas: ['PS4', 'Xbox One', 'PC'],
-      anio: 2018,
-    ),
-    Videojuego(
-      nombre: 'Minecraft',
-      genero: 'Sandbox',
-      calificacion: 9.5,
-      plataformas: ['Multiplataforma'],
-      anio: 2011,
-    ),
-    Videojuego(
-      nombre: 'League of legends',
-      genero: 'MOBA',
-      calificacion: 8.5,
-      plataformas: ['PC'],
-      anio: 2009,
-    ),
-    Videojuego(
-      nombre: 'Stardew Valley',
-      genero: 'Simulación',
-      calificacion: 9.0,
-      plataformas: ['Multiplataforma'],
-      anio: 2016,
-    ),
-    Videojuego(
-      nombre: 'Balatro',
-      genero: 'Roguelike',
-      calificacion: 9.6,
-      plataformas: ['Multiplataforma'],
-      anio: 2024,
-    ),
-  ];
-  List<Videojuego> filteredVideojuegos = [];
-  TextEditingController searchController = TextEditingController();
+class _GamePageState extends State<GamePage> {
+  List<Videojuego> _allGames = [];
+  List<Videojuego> _filteredGames = [];
   bool _sortByRatingDescending = true;
-  final List<bool> _isFavoriteList = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    filteredVideojuegos.addAll(allVideojuegos);
-    _isFavoriteList.addAll(
-      List.generate(allVideojuegos.length, (index) => false),
-    );
+    _loadGamesFromDB();
   }
 
-  void _filterVideojuegos(String query) {
+  Future<void> _loadGamesFromDB() async {
+    final games = await DatabaseHelper.instance.getAllGames();
+    setState(() {
+      _allGames = games;
+      _filteredGames = List.from(_allGames);
+    });
+  }
+
+  void _filterGames(String query) {
     setState(() {
       if (query.isEmpty) {
-        filteredVideojuegos.clear();
-        filteredVideojuegos.addAll(allVideojuegos);
+        _filteredGames = List.from(_allGames);
       } else {
-        filteredVideojuegos =
-            allVideojuegos
+        _filteredGames =
+            _allGames
                 .where(
-                  (videojuego) => videojuego.nombre.toLowerCase().contains(
-                    query.toLowerCase(),
-                  ),
+                  (game) =>
+                      game.nombre.toLowerCase().contains(query.toLowerCase()),
                 )
                 .toList();
       }
-      _sortFilteredVideojuegos();
+      _sortGames();
     });
   }
 
-  void _sortFilteredVideojuegos() {
-    setState(() {
-      filteredVideojuegos.sort((a, b) {
-        if (_sortByRatingDescending) {
-          return b.calificacion.compareTo(a.calificacion); // Orden descendente
-        } else {
-          return a.calificacion.compareTo(b.calificacion); // Orden ascendente
-        }
-      });
+  void _sortGames() {
+    _filteredGames.sort((a, b) {
+      return _sortByRatingDescending
+          ? b.calificacion.compareTo(a.calificacion)
+          : a.calificacion.compareTo(b.calificacion);
     });
   }
 
-  void _toggleIcon(int i) {
-    setState(() {
-      _isFavoriteList[i] = !_isFavoriteList[i];
-    });
+  Future<void> _toggleFavorite(Videojuego juego) async {
+    final updatedGame = Videojuego(
+      id: juego.id,
+      nombre: juego.nombre,
+      genero: juego.genero,
+      calificacion: juego.calificacion,
+      plataformas: juego.plataformas,
+      anio: juego.anio,
+      imagenUrl: juego.imagenUrl,
+      favorito: !juego.favorito,
+      jugado: juego.jugado,
+      pendiente: juego.pendiente,
+    );
+
+    await DatabaseHelper.instance.updateGame(updatedGame);
+    await _loadGamesFromDB();
   }
 
   @override
   Widget build(BuildContext context) {
-    _sortFilteredVideojuegos();
+    _sortGames();
+
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
-      appBar: AppBar(
-        title: Text('Buscar Videojuegos'),
-        backgroundColor: Colors.deepPurple[200],
-      ),
+      appBar: AppBar(title: const Text('Explorar Juegos')),
+      drawer: const AppDrawer(),
       body: Column(
-        children: <Widget>[
+        children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-              controller: searchController,
-              onChanged: _filterVideojuegos,
-              decoration: InputDecoration(
+              controller: _searchController,
+              onChanged: _filterGames,
+              decoration: const InputDecoration(
                 labelText: 'Buscar por nombre',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
                 filled: true,
-                fillColor: Colors.white,
               ),
             ),
           ),
@@ -137,30 +106,49 @@ class _GamePage extends State<GamePage> {
             onPressed: () {
               setState(() {
                 _sortByRatingDescending = !_sortByRatingDescending;
-                _sortFilteredVideojuegos();
+                _sortGames();
               });
             },
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: filteredVideojuegos.length,
+              itemCount: _filteredGames.length,
               itemBuilder: (context, index) {
-                final videojuego = filteredVideojuegos[index];
-                final isFavorite = _isFavoriteList[index];
+                final game = _filteredGames[index];
                 return ListTile(
-                  title: Text(
-                    '${videojuego.nombre} - ${videojuego.calificacion}',
+                  leading: Image.network(
+                    game.imagenUrl,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                    errorBuilder:
+                        (_, __, ___) => const Icon(Icons.broken_image),
                   ),
-                  subtitle: Text(
-                    '${videojuego.genero} (${videojuego.anio}) - ${videojuego.plataformas.join(", ")}',
-                  ),
+                  title: Text('${game.nombre} (${game.anio})'),
+                  subtitle: Text('${game.genero} - ${game.calificacion}'),
                   trailing: IconButton(
-                    onPressed: () => _toggleIcon(index),
-                    icon:
-                        isFavorite
-                            ? const Icon(Icons.favorite, color: Colors.red)
-                            : const Icon(Icons.favorite_border),
+                    icon: Icon(
+                      game.favorito ? Icons.favorite : Icons.favorite_border,
+                      color: game.favorito ? Colors.red : null,
+                    ),
+                    onPressed: () => _toggleFavorite(game),
                   ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) => Dialog(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: GamePreviewWidget(
+                                juego: game,
+                                onSaved:
+                                    _loadGamesFromDB, // refresca lista al guardar
+                              ),
+                            ),
+                          ),
+                    );
+                  },
                 );
               },
             ),

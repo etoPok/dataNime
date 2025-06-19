@@ -1,4 +1,4 @@
-package com.example.videogame_rating
+package cl.blitzy.gamegauge
 
 import io.flutter.embedding.android.FlutterActivity
 

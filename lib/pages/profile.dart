@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:videogame_rating/widget/app_drawer.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.title});
-
+  static const routeName = '/profile';
   final String title;
 
   @override
@@ -13,11 +14,8 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple[200],
-        title: Text(widget.title),
-      ),
-      backgroundColor: Colors.deepPurple[50],
+      appBar: AppBar(title: Text(widget.title)),
+      drawer: const AppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -59,7 +57,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 80,
                         width: 180,
                         child: Card(
-                          color: Colors.deepPurple[100],
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.all(8),
@@ -76,7 +73,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 80,
                         width: 180,
                         child: Card(
-                          color: Colors.deepPurple[100],
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.all(8),
@@ -93,7 +89,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 80,
                         width: 180,
                         child: Card(
-                          color: Colors.deepPurple[100],
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.all(8),

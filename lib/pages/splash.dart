@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:videogame_rating/pages/home.dart';
+import 'package:videogame_rating/data/services/import_games.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.title});
-
+  static const routeName = '/splash';
   final String title;
 
   @override
@@ -24,25 +25,27 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       }
     });
+    _loadDataAndNavigate();
+  }
+
+  Future<void> _loadDataAndNavigate() async {
+    await importGamesFromJson(); // Cargar los juegos al iniciar
+    await Future.delayed(Duration(seconds: 2)); // Simulación de carga
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, MyHomePage.routeName);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[100],
+      backgroundColor: Color(0xFF43464B),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/Logo.png'),
-            Text(
-              'Game Gauge',
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
+            Text('Game Gauge', style: TextStyle(fontSize: 50)),
           ],
         ),
       ),

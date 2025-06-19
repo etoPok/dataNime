@@ -1,110 +1,99 @@
 import 'package:flutter/material.dart';
+import 'package:videogame_rating/widget/app_drawer.dart';
 import 'package:videogame_rating/widget/card_videogame.dart';
+import 'package:videogame_rating/domain/entities/videogame.dart';
+import 'package:videogame_rating/data/services/database_helper.dart';
+import 'package:videogame_rating/widget/game_preview.dart';
 
-class LibraryPage extends StatelessWidget {
+class LibraryPage extends StatefulWidget {
+  static const routeName = '/library';
   const LibraryPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            bottom: const TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.favorite)),
-                Tab(icon: Icon(Icons.save)),
-                Tab(icon: Icon(Icons.check_box_outlined)),
-              ],
-            ),
-            title: const Text('Biblioteca'),
-          ),
+  State<LibraryPage> createState() => _LibraryPageState();
+}
 
-          body: TabBarView(
-            children: [
-              ListView(
-                children: <Widget>[
-                  GameCard(
-                    imageUrl:
-                        'https://store-images.s-microsoft.com/image/apps.29727.67793643321489003.dd2aabd5-013d-491f-b85d-72606a4f8434.592bd1ae-48b0-4813-bfb4-00369a2e26e7?mode=scale&q=90&h=720&w=1280&background=%23FFFFFF',
-                    gameName: 'Red Dead Redemption 2',
-                    rating: 9.7,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-80471666c140f790f28dff68d72c384b',
-                    gameName: 'League of legends',
-                    rating: 8.5,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/105600/capsule_616x353.jpg?t=1731252354',
-                    gameName: 'Terraria',
-                    rating: 10,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://i0.wp.com/www.vozactual.com/wp-content/uploads/2020/05/gta-portada.jpg?fit=1024%2C576&ssl=1',
-                    gameName: 'Grand Theft Auto V',
-                    rating: 9.7,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000003208/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51',
-                    gameName: 'Hollow Knight',
-                    rating: 9.1,
-                  ),
-                ],
-              ),
-              ListView(
-                children: <Widget>[
-                  GameCard(
-                    imageUrl:
-                        'https://store-images.s-microsoft.com/image/apps.29727.67793643321489003.dd2aabd5-013d-491f-b85d-72606a4f8434.592bd1ae-48b0-4813-bfb4-00369a2e26e7?mode=scale&q=90&h=720&w=1280&background=%23FFFFFF',
-                    gameName: 'Red Dead Redemption 2',
-                    rating: 9.7,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://i0.wp.com/www.vozactual.com/wp-content/uploads/2020/05/gta-portada.jpg?fit=1024%2C576&ssl=1',
-                    gameName: 'Grand Theft Auto V',
-                    rating: 9.7,
-                  ),
-                ],
-              ),
-              ListView(
-                children: <Widget>[
-                  GameCard(
-                    imageUrl:
-                        'https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-80471666c140f790f28dff68d72c384b',
-                    gameName: 'League of legends',
-                    rating: 8.5,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/105600/capsule_616x353.jpg?t=1731252354',
-                    gameName: 'Terraria',
-                    rating: 10,
-                  ),
-                  GameCard(
-                    imageUrl:
-                        'https://assets.nintendo.com/image/upload/ar_16:9,c_lpad,w_1240/b_white/f_auto/q_auto/ncom/software/switch/70010000003208/4643fb058642335c523910f3a7910575f56372f612f7c0c9a497aaae978d3e51',
-                    gameName: 'Hollow Knight',
-                    rating: 9.1,
-                  ),
-                ],
-              ),
+class _LibraryPageState extends State<LibraryPage> {
+  List<Videojuego> favoritos = [];
+  List<Videojuego> jugados = [];
+  List<Videojuego> pendientes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadGames();
+  }
+
+  Future<void> _loadGames() async {
+    final allGames = await DatabaseHelper.instance.getAllGames();
+
+    setState(() {
+      favoritos = allGames.where((j) => j.favorito).toList();
+      jugados = allGames.where((j) => j.jugado).toList();
+      pendientes = allGames.where((j) => j.pendiente).toList();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Mi Biblioteca'),
+          bottom: const TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.favorite), text: "Favoritos"),
+              Tab(icon: Icon(Icons.check_box_outlined), text: "Jugados"),
+              Tab(icon: Icon(Icons.schedule), text: "Pendientes"),
             ],
           ),
         ),
+        drawer: const AppDrawer(),
+        body: TabBarView(
+          children: [
+            _buildGameList(favoritos),
+            _buildGameList(jugados),
+            _buildGameList(pendientes),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildGameList(List<Videojuego> juegos) {
+    if (juegos.isEmpty) {
+      return const Center(child: Text('No hay juegos en esta categoría.'));
+    }
+
+    return ListView.builder(
+      itemCount: juegos.length,
+      itemBuilder: (context, index) {
+        final juego = juegos[index];
+
+        return InkWell(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder:
+                  (context) => Dialog(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: GamePreviewWidget(
+                        juego: juego,
+                        onSaved: _loadGames, // refresca la lista al guardar
+                      ),
+                    ),
+                  ),
+            );
+          },
+          child: GameCard(
+            imageUrl: juego.imagenUrl,
+            gameName: juego.nombre,
+            rating: juego.calificacion,
+          ),
+        );
+      },
     );
   }
 }
