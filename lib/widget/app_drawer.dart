@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:videogame_rating/pages/home.dart';
+import 'package:videogame_rating/pages/preferences.dart';
 import 'package:videogame_rating/pages/profile.dart';
 import 'package:videogame_rating/pages/games.dart';
 import 'package:videogame_rating/pages/library.dart';
+import 'package:videogame_rating/pages/about.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -16,7 +18,19 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const SizedBox(height: 96, child: DrawerHeader(child: Text('Menú'))),
+          SizedBox(
+            height: 96,
+            child: DrawerHeader(
+              padding: EdgeInsets.zero,
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  'Game Gauge',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+            ),
+          ),
           ListTile(
             leading: const Icon(Icons.home_filled),
             title: const Text('Inicio'),
@@ -60,6 +74,30 @@ class AppDrawer extends StatelessWidget {
               if (currentRoute != LibraryPage.routeName) {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(LibraryPage.routeName);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Preferencias'),
+            onTap: () {
+              if (currentRoute != PreferencesPage.routeName) {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(PreferencesPage.routeName);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: const Text('Acerca de'),
+            onTap: () {
+              if (currentRoute != AboutPage.routeName) {
+                Navigator.pop(context);
+                Navigator.of(context).pushNamed(AboutPage.routeName);
               } else {
                 Navigator.pop(context);
               }

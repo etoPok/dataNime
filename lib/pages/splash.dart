@@ -29,8 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _loadDataAndNavigate() async {
-    await importGamesFromJson(); // Cargar los juegos al iniciar
-    await Future.delayed(Duration(seconds: 2)); // Simulación de carga
+    await importGamesFromJson();
+    await Future.delayed(Duration(seconds: 2));
     if (mounted) {
       Navigator.pushReplacementNamed(context, MyHomePage.routeName);
     }

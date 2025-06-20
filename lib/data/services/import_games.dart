@@ -21,7 +21,6 @@ Future<void> importGamesFromJson() async {
       imagenUrl: jsonItem['imagenUrl'],
     );
 
-    // Verificamos si ya existe por nombre
     final exists = await _gameExistsByName(videojuego.nombre);
     if (!exists) {
       await db.insertGame(videojuego);

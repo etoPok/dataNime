@@ -142,8 +142,7 @@ class _GamePageState extends State<GamePage> {
                               padding: const EdgeInsets.all(16),
                               child: GamePreviewWidget(
                                 juego: game,
-                                onSaved:
-                                    _loadGamesFromDB, // refresca lista al guardar
+                                onSaved: _loadGamesFromDB,
                               ),
                             ),
                           ),

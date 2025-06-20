@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: const TabBarView(
           children: [
-            // Página 1: Últimos éxitos
             GameListView(
               games: [
                 GameCard(
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            // Página 2: Más esperados
+
             GameListView(
               games: [
                 GameCard(

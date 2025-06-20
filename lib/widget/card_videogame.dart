@@ -62,9 +62,7 @@ class GameCard extends StatelessWidget {
                     const Icon(Icons.star, color: Colors.amber, size: 16.0),
                     const SizedBox(width: 4.0),
                     Text(
-                      rating.toStringAsFixed(
-                        1,
-                      ), // Mostrar la calificación con un decimal
+                      rating.toStringAsFixed(1),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 14.0,

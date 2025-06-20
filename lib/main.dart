@@ -6,6 +6,9 @@ import 'package:videogame_rating/pages/profile.dart';
 import 'package:videogame_rating/pages/games.dart';
 import 'package:videogame_rating/pages/library.dart';
 import 'package:videogame_rating/pages/home.dart';
+import 'package:videogame_rating/pages/about.dart';
+import 'package:videogame_rating/pages/feedback.dart';
+import 'package:videogame_rating/pages/preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +17,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final brightness = View.of(context).platformDispatcher.platformBrightness;
@@ -32,6 +34,9 @@ class MyApp extends StatelessWidget {
         ProfilePage.routeName: (context) => const ProfilePage(title: 'Perfil'),
         GamePage.routeName: (context) => GamePage(),
         LibraryPage.routeName: (context) => const LibraryPage(),
+        AboutPage.routeName: (context) => const AboutPage(),
+        FeedbackPage.routeName: (context) => const FeedbackPage(),
+        PreferencesPage.routeName: (context) => const PreferencesPage(),
       },
     );
   }

@@ -4,7 +4,7 @@ import 'package:videogame_rating/data/services/database_helper.dart';
 
 class GamePreviewWidget extends StatefulWidget {
   final Videojuego juego;
-  final VoidCallback? onSaved; // callback opcional cuando guardas cambios
+  final VoidCallback? onSaved;
 
   const GamePreviewWidget({super.key, required this.juego, this.onSaved});
 
