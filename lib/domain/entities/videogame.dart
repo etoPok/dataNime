@@ -1,7 +1,7 @@
 class Videojuego {
   final int? id;
   final String nombre;
-  final String genero;
+  final List<String> genero;
   final double calificacion;
   final List<String> plataformas;
   final int anio;
@@ -26,7 +26,7 @@ class Videojuego {
   Videojuego copyWith({
     int? id,
     String? nombre,
-    String? genero,
+    List<String>? genero,
     double? calificacion,
     List<String>? plataformas,
     int? anio,
@@ -53,7 +53,7 @@ class Videojuego {
     return {
       'id': id,
       'nombre': nombre,
-      'genero': genero,
+      'genero': genero.join(','),
       'calificacion': calificacion,
       'plataformas': plataformas.join(','),
       'anio': anio,
@@ -68,7 +68,7 @@ class Videojuego {
     return Videojuego(
       id: map['id'],
       nombre: map['nombre'],
-      genero: map['genero'],
+      genero: (map['genero'] as String).split(','),
       calificacion: map['calificacion'],
       plataformas: (map['plataformas'] as String).split(','),
       anio: map['anio'],

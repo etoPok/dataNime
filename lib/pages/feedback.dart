@@ -15,6 +15,7 @@ class FeedbackPage extends StatefulWidget {
 
 class _FeedbackPageState extends State<FeedbackPage> {
   final TextEditingController _idController = TextEditingController();
+  final TextEditingController _opinionController = TextEditingController();
   Map<String, List<Pregunta>> categorias = {};
 
   @override
@@ -24,7 +25,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
   }
 
   Future<void> _cargarPreguntas() async {
-    final data = await rootBundle.loadString('assets/data/questions.json');
+    final data = await rootBundle.loadString('lib/data/models/questions.json');
     final jsonData = json.decode(data) as Map<String, dynamic>;
 
     final Map<String, List<Pregunta>> temp = {};
@@ -39,6 +40,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   Future<void> _enviarCorreo() async {
     final id = _idController.text.trim();
+    final opinion = _opinionController.text.trim();
     if (id.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor, ingresa tu identificación')),
@@ -56,6 +58,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
         buffer.writeln('');
       }
     });
+
+    if (opinion.isNotEmpty) {
+      buffer.writeln('Comentario adicional:');
+      buffer.writeln(opinion);
+      buffer.writeln('');
+    }
 
     final subject = Uri.encodeComponent('Retroalimentación de $id');
     final body = Uri.encodeComponent(buffer.toString());
@@ -96,10 +104,22 @@ class _FeedbackPageState extends State<FeedbackPage> {
             const SizedBox(height: 16),
             Expanded(
               child: ListView(
-                children:
-                    categorias.entries.map((entry) {
-                      return _buildCategoria(entry.key, entry.value);
-                    }).toList(),
+                padding: const EdgeInsets.only(bottom: 16),
+                children: [
+                  ...categorias.entries.map(
+                    (entry) => _buildCategoria(entry.key, entry.value),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _opinionController,
+                    maxLines: 4,
+                    decoration: const InputDecoration(
+                      labelText: '¿Tienes algún comentario adicional?',
+                      hintText: 'Escribe tu opinión o sugerencia aquí...',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ],
               ),
             ),
             ElevatedButton.icon(

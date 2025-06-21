@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
           ),
           bottom: const TabBar(
-            tabs: [Tab(text: 'Mejores Juegos'), Tab(text: 'Recomendaciones')],
+            tabs: [Tab(text: 'Mejores Juegos'), Tab(text: 'Ruleta')],
           ),
         ),
         body: TabBarView(
@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ElevatedButton.icon(
                             onPressed: _randomizeGames,
                             icon: const Icon(Icons.refresh),
-                            label: const Text("Otra recomendación"),
+                            label: const Text("Tirar otra vez"),
                           ),
                         ],
                       ),

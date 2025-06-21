@@ -5,14 +5,17 @@ class PreferencesModel extends ChangeNotifier {
   static const _keyThemeMode = 'theme_mode';
   static const _keyShowSummary = 'show_summary';
   static const _keyPlatform = 'platformFilter';
+  static const _keySelectedGenre = 'selectedGenre';
 
   ThemeMode _themeMode = ThemeMode.system;
   bool _showSummary = true;
   String? _platformFilter;
+  String? _selectedGenre;
 
   ThemeMode get themeMode => _themeMode;
   bool get showSummary => _showSummary;
   String? get platformFilter => _platformFilter;
+  String? get selectedGenre => _selectedGenre;
 
   PreferencesModel() {
     _loadPreferences();
@@ -28,6 +31,17 @@ class PreferencesModel extends ChangeNotifier {
     _showSummary = value;
     notifyListeners();
     _savePreferences();
+  }
+
+  Future<void> setSelectedGenre(String? genre) async {
+    _selectedGenre = (genre != null && genre.trim().isNotEmpty) ? genre : null;
+    final prefs = await SharedPreferences.getInstance();
+    if (_selectedGenre == null) {
+      await prefs.remove('selectedGenre');
+    } else {
+      await prefs.setString('selectedGenre', _selectedGenre!);
+    }
+    notifyListeners();
   }
 
   set platformFilter(String? platform) {
@@ -52,7 +66,10 @@ class PreferencesModel extends ChangeNotifier {
           _themeMode = ThemeMode.system;
       }
       _showSummary = prefs.getBool(_keyShowSummary) ?? true;
-
+      _selectedGenre = prefs.getString(_keySelectedGenre);
+      if (_selectedGenre != null && _selectedGenre!.trim().isEmpty) {
+        _selectedGenre = null;
+      }
       notifyListeners();
     }
   }

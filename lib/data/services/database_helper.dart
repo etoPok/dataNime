@@ -66,4 +66,10 @@ class DatabaseHelper {
     final db = await instance.database;
     await db.delete('juegos', where: 'id = ?', whereArgs: [id]);
   }
+
+  Future<List<String>> getAllGenres() async {
+    final db = await instance.database;
+    final result = await db.rawQuery('SELECT DISTINCT genero FROM juegos');
+    return result.map((row) => row['genero'] as String).toList();
+  }
 }

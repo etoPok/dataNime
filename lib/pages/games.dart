@@ -67,7 +67,16 @@ class _GamePageState extends State<GamePage> {
             final matchesPlatform =
                 prefs.platformFilter == null ||
                 game.plataformas.contains(prefs.platformFilter);
-            return matchesPlatform;
+
+            final matchesGenre =
+                prefs.selectedGenre == null ||
+                game.genero.any(
+                  (g) => g.toLowerCase().contains(
+                    prefs.selectedGenre!.toLowerCase(),
+                  ),
+                );
+
+            return matchesPlatform && matchesGenre;
           }).toList();
       _sortGames();
     });

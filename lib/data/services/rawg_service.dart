@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:videogame_rating/domain/entities/videogame.dart';
+import 'package:videogame_rating/domain/entities/genre_translations.dart';
 
 class RawgService {
   final String _apiKey = 'eb23da9e656e4b40a1014b96087bfdd6'; // Tu API Key
@@ -29,10 +30,11 @@ class RawgService {
                       .map((g) => g['name'] as String)
                       .toList();
             }
+            generos = translateGenres(generos);
             return Videojuego(
               id: null,
               nombre: json['name'] ?? 'Nombre desconocido',
-              genero: generos.join(', '),
+              genero: generos,
               calificacion: (json['rating'] as num).toDouble(),
               plataformas:
                   (json['platforms'] as List)

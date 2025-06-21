@@ -48,7 +48,12 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset('assets/Logo.png'),
-            Text('Game Gauge', style: TextStyle(fontSize: 50)),
+            Text(
+              'Game Gauge',
+              style: Theme.of(
+                context,
+              ).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),
