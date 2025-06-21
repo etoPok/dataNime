@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:videogame_rating/widget/card_videogame.dart';
 import 'package:videogame_rating/widget/app_drawer.dart';
-import 'package:videogame_rating/widget/game_list.dart';
+import 'package:videogame_rating/data/services/database_helper.dart';
+import 'package:videogame_rating/domain/entities/videogame.dart';
+import 'package:videogame_rating/pages/game_preview.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -13,6 +15,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Videojuego> topGames = [];
+  List<Videojuego> randomGames = [];
+  List<Videojuego> allGames = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadGames();
+  }
+
+  Future<void> _loadGames() async {
+    final games = await DatabaseHelper.instance.getAllGames();
+    if (!mounted) return;
+
+    // Ordenar por calificación descendente
+    final sorted = List<Videojuego>.from(games)
+      ..sort((a, b) => b.calificacion.compareTo(a.calificacion));
+
+    setState(() {
+      allGames = games;
+      topGames = sorted.take(50).toList();
+      _randomizeGames();
+    });
+  }
+
+  void _randomizeGames() {
+    if (allGames.length >= 3) {
+      final shuffled = List<Videojuego>.from(allGames)..shuffle();
+      setState(() {
+        randomGames = shuffled.take(3).toList();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -21,68 +57,90 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(
             widget.title,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           leading: Builder(
-            builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              );
-            },
+            builder:
+                (context) => IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                ),
           ),
           bottom: const TabBar(
-            tabs: [Tab(text: 'Últimos éxitos'), Tab(text: 'Más esperados')],
+            tabs: [Tab(text: 'Mejores Juegos'), Tab(text: 'Recomendaciones')],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            GameListView(
-              games: [
-                GameCard(
-                  imageUrl:
-                      'https://p325k7wa.twic.pics/high/clair-obscur/clair-obscur-expedition-33/00-page-setup/CO-EXP33-mobile-header.jpg?twic=v1/resize=760/step=10/quality=80',
-                  gameName: 'Clair Obscur: Expedition 33',
-                  rating: 9.7,
-                ),
-                GameCard(
-                  imageUrl:
-                      'https://external-preview.redd.it/AhGvOXy8VaXQWC4m6cEVhbtW_SxHI8PFZL4doLQ_wMY.jpg?width=640&crop=smart&auto=webp&s=b8963cd58719d9e9a055924ac005eda6018787eb',
-                  gameName: 'Oblivion Remastered',
-                  rating: 8.9,
-                ),
-              ],
+            // Mejores juegos
+            ListView.builder(
+              itemCount: topGames.length,
+              itemBuilder: (context, index) {
+                final game = topGames[index];
+                return InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (_) => GamePreviewPage(
+                              juego: game,
+                              onSaved: _loadGames,
+                            ),
+                      ),
+                    );
+                  },
+                  child: GameCard(
+                    imageUrl: game.imagenUrl,
+                    gameName: game.nombre,
+                    rating: game.calificacion,
+                  ),
+                );
+              },
             ),
-
-            GameListView(
-              games: [
-                GameCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS125Eh92mj-QyFcuHrFnFETGZAZjyG-4UUsg&s',
-                  gameName: 'GTA VI',
-                  rating: 0,
-                ),
-                GameCard(
-                  imageUrl:
-                      'https://i0.wp.com/levelup.buscafs.com/2025/04/Hollow-Knight-Silksong.jpg?fit=1280,960&quality=75&strip=all',
-                  gameName: 'Silksong',
-                  rating: 0,
-                ),
-                GameCard(
-                  imageUrl:
-                      'https://images.mweb.bethesda.net/_images/doom-the-dark-ages/doom-tda-premium-banner.webp?f=jpg&h=1030&w=1858&s=RUEHO3D3bUaIF88RAvCBhkU75xNd6nnDXHv5TaiDOAw',
-                  gameName: 'Doom: The Dark Ages',
-                  rating: 0,
-                ),
-                GameCard(
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTsbJE5fS-QAOOXFkzc_sRfbjobXXXGwmvdANyV9CNDQxe0j5MDXEW52zwpah7p2zCBss&usqp=CAU',
-                  gameName: 'Death Stranding 2',
-                  rating: 0,
-                ),
-              ],
+            // Recomendación aleatoria
+            Center(
+              child:
+                  randomGames.isEmpty
+                      ? const CircularProgressIndicator()
+                      : Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ...randomGames.map(
+                            (game) => Padding(
+                              padding: const EdgeInsets.symmetric(),
+                              child: SizedBox(
+                                height: 180,
+                                child: InkWell(
+                                  onTap: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (_) => GamePreviewPage(
+                                              juego: game,
+                                              onSaved: _loadGames,
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                  child: GameCard(
+                                    imageUrl: game.imagenUrl,
+                                    gameName: game.nombre,
+                                    rating: game.calificacion,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton.icon(
+                            onPressed: _randomizeGames,
+                            icon: const Icon(Icons.refresh),
+                            label: const Text("Otra recomendación"),
+                          ),
+                        ],
+                      ),
             ),
           ],
         ),

@@ -35,7 +35,7 @@ class _AboutPageState extends State<AboutPage> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const Text(
-                'Esta aplicación permite explorar, calificar y gestionar videojuegos, ofreciendo una experiencia organizada y personalizable.',
+                'Game Gauge es una aplicación intuitiva que te permite explorar, buscar y organizar tu colección de videojuegos, marcándolos como favoritos, jugados o pendientes. Con integración a la API de RAWG, ofrece información actualizada, calificaciones y descripciones de cada juego, además de búsqueda por voz para facilitar la experiencia.',
               ),
               const Spacer(),
               Center(

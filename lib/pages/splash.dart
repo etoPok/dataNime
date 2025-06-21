@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:videogame_rating/pages/home.dart';
 import 'package:videogame_rating/data/services/import_games.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, required this.title});
@@ -15,24 +16,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => MyHomePage(title: "Game Gauge"),
-          ),
-        );
-      }
-    });
     _loadDataAndNavigate();
   }
 
   Future<void> _loadDataAndNavigate() async {
-    await importGamesFromJson();
+    final prefs = await SharedPreferences.getInstance();
+    final alreadyImported = prefs.getBool('games_imported') ?? false;
+
+    if (!alreadyImported) {
+      await importGamesFromApi();
+      await prefs.setBool('games_imported', true);
+    }
+
     await Future.delayed(Duration(seconds: 2));
     if (mounted) {
-      Navigator.pushReplacementNamed(context, MyHomePage.routeName);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MyHomePage(title: "Game Gauge"),
+        ),
+      );
     }
   }
 

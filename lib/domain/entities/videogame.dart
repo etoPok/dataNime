@@ -23,6 +23,32 @@ class Videojuego {
     this.pendiente = false,
   });
 
+  Videojuego copyWith({
+    int? id,
+    String? nombre,
+    String? genero,
+    double? calificacion,
+    List<String>? plataformas,
+    int? anio,
+    String? imagenUrl,
+    bool? favorito,
+    bool? jugado,
+    bool? pendiente,
+  }) {
+    return Videojuego(
+      id: id ?? this.id,
+      nombre: nombre ?? this.nombre,
+      genero: genero ?? this.genero,
+      calificacion: calificacion ?? this.calificacion,
+      plataformas: plataformas ?? this.plataformas,
+      anio: anio ?? this.anio,
+      imagenUrl: imagenUrl ?? this.imagenUrl,
+      favorito: favorito ?? this.favorito,
+      jugado: jugado ?? this.jugado,
+      pendiente: pendiente ?? this.pendiente,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

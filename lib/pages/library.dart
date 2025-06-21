@@ -3,7 +3,7 @@ import 'package:videogame_rating/widget/app_drawer.dart';
 import 'package:videogame_rating/widget/card_videogame.dart';
 import 'package:videogame_rating/domain/entities/videogame.dart';
 import 'package:videogame_rating/data/services/database_helper.dart';
-import 'package:videogame_rating/widget/game_preview.dart';
+import 'package:videogame_rating/pages/game_preview.dart';
 
 class LibraryPage extends StatefulWidget {
   static const routeName = '/library';
@@ -72,19 +72,14 @@ class _LibraryPageState extends State<LibraryPage> {
         final juego = juegos[index];
 
         return InkWell(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder:
-                  (context) => Dialog(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: GamePreviewWidget(
-                        juego: juego,
-                        onSaved: _loadGames,
-                      ),
-                    ),
-                  ),
+          onTap: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) =>
+                        GamePreviewPage(juego: juego, onSaved: _loadGames),
+              ),
             );
           },
           child: GameCard(
