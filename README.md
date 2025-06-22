@@ -43,8 +43,8 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 - **Interfaz de usuario atractiva**: Diseño moderno y atractivo con uso de imágenes, íconos y tarjetas informativas. 
 ## Capturas de pantalla 
 
-![Home](assets/Capturas/home.jpg)
-![drawer](assets/Capturas/drawer.jpg)
+<img src="assets/Capturas/home.jpg" alt="Home" width="200"/>
+<img src="assets/Capturas/drawer.jpg" alt="Drawer" width="200"/>
 
 ## Descargar la app
 
