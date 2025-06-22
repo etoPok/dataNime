@@ -41,6 +41,16 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 - **Visualización de detalles del videojuego**: Los usuarios pueden ver información detallada sobre cada videojuego. 
 - **Navegación intuitiva**: La aplicación ofrece una navegación fácil de usar a través de un menú lateral y una estructura de pestañas en la biblioteca. 
 - **Interfaz de usuario atractiva**: Diseño moderno y atractivo con uso de imágenes, íconos y tarjetas informativas. 
+## Capturas de pantalla 
+
+![Home](assets/Capturas/home.jpg)
+![drawer](assets/Capturas/drawer.jpg)
+
+## Descargar la app
+
+Puedes probar la aplicación descargando el APK:
+
+[ Descargar APK (v1.0.0)](https://github.com/xWTomasWx/VideogameRating/releases/download/v1.0.0/game_gauge.apk)
 ## Recursos generados 
 - [Enlace del proyecto en github](https://github.com/xWTomasWx/VideogameRating)
 - [Enlace presentación](https://drive.google.com/file/d/1X0jYLj_HepNChIGcx9ltIi3TE5Sxsyjs/view?usp=sharing)
@@ -48,103 +58,94 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 - **Diagrama de clases:**
 ``` mermaid 
 classDiagram
-    class  Videojuego  {
-
+    class Videojuego {
         +String nombre
-
         +String genero
-
         +double calificacion
-
-        +List~String~  plataformas
-
+        +List~String~ plataformas
         +int anio
-
-        +Videojuego(nombre, genero, calificacion, plataformas, anio)
-
+        +String imagenUrl
+        +bool favorito
+        +bool jugado
+        +bool pendiente
+        +String resumen
     }
 
-    class  GamePage  {
-
-        -List~Videojuego~  allVideojuegos
-
-        -List~Videojuego~  filteredVideojuegos
-
-        -TextEditingController searchController
-
-        -bool _sortByRatingDescending
-
-        -List~bool~ _isFavoriteList
-
+    class GamePage {
         +initState()
-
-        -_filterVideojuegos(String query)
-
-        -_sortFilteredVideojuegos()
-
-        -_toggleIcon(int i)
-
-        +build(BuildContext context)
-
+        +_loadGamesFromDB()
+        +_filterGames(String)
+        +_sortGames()
+        +_toggleFlag(Videojuego, String)
+        +build(BuildContext)
     }
 
-    class  MyHomePage  {
+    class LibraryPage {
+        +build(BuildContext)
+    }
 
+    class GamePreviewPage {
+        +Videojuego juego
+        +onSaved
+        +build(BuildContext)
+    }
+
+    class MyHomePage {
         +String title
-
-        +build(BuildContext context)
-
+        +build(BuildContext)
     }
 
-    class  LibraryPage  {
-
-        +build(BuildContext context)
-
+    class AboutPage {
+        +build(BuildContext)
     }
 
-    class  ProfilePage  {
-
-        +String title
-
-        +build(BuildContext context)
-
-    }
-
-    class  SplashScreen  {
-
-        +String title
-
+    class PreferencesPage {
         +initState()
-
-        +build(BuildContext context)
-
+        +_loadGenres()
+        +build(BuildContext)
     }
 
-    class  GameCard  {
-
-        +String imageUrl
-
-        +String gameName
-
-        +double rating
-
-        +GameCard(imageUrl, gameName, rating)
-
-        +build(BuildContext context)
-
+    class FeedbackPage {
+        +_idController
+        +_opinionController
+        +_cargarPreguntas()
+        +_enviarCorreo()
+        +build(BuildContext)
     }
 
-GamePage  -- Videojuego: uses
+    class SplashScreen {
+        +String title
+        +initState()
+        +_loadDataAndNavigate()
+        +build(BuildContext)
+    }
 
-MyHomePage  -- GameCard: uses
+    class PreferencesModel {
+        +ThemeMode themeMode
+        +bool showSummary
+        +String? platformFilter
+        +String? selectedGenre
+        +setThemeMode()
+        +setShowSummary()
+        +setSelectedGenre()
+        +platformFilter
+    }
 
-LibraryPage  -- GameCard: uses
+    class ProfilePage {
+        +String title
+        +build(BuildContext)
+    }
 
-SplashScreen -- MyHomePage: uses
+    GamePage -- Videojuego
+    LibraryPage -- Videojuego
+    GamePreviewPage -- Videojuego
+    SplashScreen -- MyHomePage
+    MyHomePage -- GamePage
+    MyHomePage -- LibraryPage
+    MyHomePage -- AboutPage
+    MyHomePage -- ProfilePage
+    AboutPage -- FeedbackPage
+    PreferencesPage -- PreferencesModel
+    GamePage -- PreferencesModel
 
-MyHomePage -- ProfilePage: uses
-
-MyHomePage -- LibraryPage: uses
-
-MyHomePage -- GamePage: uses
 ```
