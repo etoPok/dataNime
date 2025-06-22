@@ -9,6 +9,8 @@
 
 - [Lista de características](#lista-de-características)
 - [Lista de funcionalidades más relevantes](#lista-de-funcionalidades-más-relevantes)
+- [Capturas de pantalla](#capturas-de-pantalla)
+- [Descargar la app](#descargar-la-app)
 - [Recursos generados](#recursos-generados)
 
 ## Datos del creador
@@ -70,98 +72,193 @@ Puedes probar la aplicación descargando el APK:
 ## Recursos generados 
 - [Enlace del proyecto en github](https://github.com/xWTomasWx/VideogameRating)
 - [Enlace presentación](https://drive.google.com/file/d/1X0jYLj_HepNChIGcx9ltIi3TE5Sxsyjs/view?usp=sharing)
-- [Enlace video](https://youtu.be/XZcuN1ufnz8)
-- **Diagrama de clases:**
+
+
+**Diagrama de clases:**
 ``` mermaid 
 classDiagram
-    class Videojuego {
-        +String nombre
-        +String genero
-        +double calificacion
-        +List~String~ plataformas
-        +int anio
-        +String imagenUrl
-        +bool favorito
-        +bool jugado
-        +bool pendiente
-        +String resumen
-    }
+class PreferencesModel {
+  _keyThemeMode
+  _keyShowSummary
+  _keyPlatform
+  _keySelectedGenre
+  ThemeMode _themeMode
+  bool _showSummary
+  String? _platformFilter
+  String? _selectedGenre
+  get themeMode
+  get showSummary
+  get platformFilter
+  get selectedGenre
+  prefs
+  prefs
+  stored
+  prefs
+  String value
+  prefs
+  void setThemeMode(ThemeMode mode)
+  void setShowSummary(bool value)
+  Future<void> setSelectedGenre(String? genre) async
+  if (_selectedGenre == null)
+  set platformFilter(String? platform)
+  if (stored != null)
+  switch (stored)
+  if (_selectedGenre != null && _selectedGenre!.trim().isEmpty)
+  if (platform == null)
+}
+class DatabaseHelper {
+  DatabaseHelper instance
+  Database? _database
+  dbPath
+  path
+  db
+  db
+  result
+  db
+  db
+  result
+  Future<void> insertGame(Videojuego juego) async
+  Future<List<Videojuego>> getAllGames() async
+  Future<void> updateGame(Videojuego juego) async
+  Future<void> deleteGame(int id) async
+  Future<List<String>> getAllGenres() async
+}
 
-    class GamePage {
-        +initState()
-        +_loadGamesFromDB()
-        +_filterGames(String)
-        +_sortGames()
-        +_toggleFlag(Videojuego, String)
-        +build(BuildContext)
-    }
+class RawgService {
+  String _apiKey
+  int total
+  List<Videojuego> allGames
+  int pageSize
+  int totalPages
+  int page
+  url
+  response
+  data
+  List<dynamic> games
+  List<String> generos
+  return allGames
+  Future<List<Videojuego>> fetchPopularGames(
+  for (int page = 1; page <= totalPages; page++)
+  if (response.statusCode == 200)
+  if (json['genres'] != null)
+}
+class Pregunta {
+  String titulo
+  String min
+  String max
+  double valor
+}
+class Videojuego {
+  int? id
+  String nombre
+  List<String> genero
+  double calificacion
+  List<String> plataformas
+  int anio
+  String imagenUrl
+  bool favorito
+  bool jugado
+  bool pendiente
+  toMap()
+}
+class AboutPage {
+  routeName
+  createState()
+}
+class FeedbackPage {
+  routeName
+  createState()
+}
+class GamePreviewPage {
+  Videojuego juego
+  VoidCallback? onSaved
+  String apiKey
+  createState()
+}
+class GamePage {
+  routeName
+  createState()
+}
+class MyHomePage {
+  routeName
+  String title
+  createState()
+}
+class LibraryPage {
+  routeName
+  createState()
+}
+class PreferencesPage {
+  routeName
+  createState()
+}
+class ProfilePage {
+  routeName
+  String title
+  createState()
+}
+class SplashScreen {
+  routeName
+  String title
+  createState()
+}
+class AppDrawer {
+  currentRoute
+  Widget build(BuildContext context)
+  if (currentRoute != MyHomePage.routeName)
+  if (currentRoute != ProfilePage.routeName)
+  if (currentRoute != GamePage.routeName)
+  if (currentRoute != LibraryPage.routeName)
+  if (currentRoute != PreferencesPage.routeName)
+  if (currentRoute != AboutPage.routeName)
+}
+class GameCard {
+  String imageUrl
+  String gameName
+  double rating
+  Widget build(BuildContext context)
+}
+class GameListView {
+  List<Widget> games
+  Widget build(BuildContext context)
+}
+Videojuego <-- DatabaseHelper : uses
+RawgService --> Videojuego : creates
+ImportGames --> RawgService : uses
+ImportGames --> DatabaseHelper : uses
+GamePreviewPage --> Videojuego : uses
+GamePreviewPage --> DatabaseHelper : uses
+GamePreviewPage --> PreferencesModel : uses
+GamePage --> Videojuego : uses
+GamePage --> DatabaseHelper : uses
+GamePage --> PreferencesModel : uses
+GamePage --> AppDrawer : uses
+GamePage --> GamePreviewPage : uses
+MyHomePage --> Videojuego : uses
+MyHomePage --> DatabaseHelper : uses
+MyHomePage --> GameCard : uses
+MyHomePage --> AppDrawer : uses
+LibraryPage --> Videojuego : uses
+LibraryPage --> DatabaseHelper : uses
+LibraryPage --> GameCard : uses
+LibraryPage --> AppDrawer : uses
+LibraryPage --> GamePreviewPage : uses
+PreferencesPage --> PreferencesModel : uses
+PreferencesPage --> DatabaseHelper : uses
+PreferencesPage --> AppDrawer : uses
+ProfilePage --> AppDrawer : uses
+SplashScreen --> ImportGames : uses
+SplashScreen --> MyHomePage : uses
+AppDrawer --> MyHomePage : navigates
+AppDrawer --> PreferencesPage : navigates
+AppDrawer --> ProfilePage : navigates
+AppDrawer --> GamePage : navigates
+AppDrawer --> LibraryPage : navigates
+AppDrawer --> AboutPage : navigates
+GameCard <-- MyHomePage : creates
+GameCard <-- LibraryPage : creates
+FeedbackPage --> Pregunta : uses
+AboutPage --> FeedbackPage : navigates
 
-    class LibraryPage {
-        +build(BuildContext)
-    }
-
-    class GamePreviewPage {
-        +Videojuego juego
-        +onSaved
-        +build(BuildContext)
-    }
-
-    class MyHomePage {
-        +String title
-        +build(BuildContext)
-    }
-
-    class AboutPage {
-        +build(BuildContext)
-    }
-
-    class PreferencesPage {
-        +initState()
-        +_loadGenres()
-        +build(BuildContext)
-    }
-
-    class FeedbackPage {
-        +_idController
-        +_opinionController
-        +_cargarPreguntas()
-        +_enviarCorreo()
-        +build(BuildContext)
-    }
-
-    class SplashScreen {
-        +String title
-        +initState()
-        +_loadDataAndNavigate()
-        +build(BuildContext)
-    }
-
-    class PreferencesModel {
-        +ThemeMode themeMode
-        +bool showSummary
-        +String? platformFilter
-        +String? selectedGenre
-        +setThemeMode()
-        +setShowSummary()
-        +setSelectedGenre()
-        +platformFilter
-    }
-
-    class ProfilePage {
-        +String title
-        +build(BuildContext)
-    }
-
-    GamePage -- Videojuego
-    LibraryPage -- Videojuego
-    GamePreviewPage -- Videojuego
-    SplashScreen -- MyHomePage
-    MyHomePage -- GamePage
-    MyHomePage -- LibraryPage
-    MyHomePage -- AboutPage
-    MyHomePage -- ProfilePage
-    AboutPage -- FeedbackPage
-    PreferencesPage -- PreferencesModel
-    GamePage -- PreferencesModel
 
 ```
