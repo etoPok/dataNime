@@ -30,15 +30,17 @@
 Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los usuarios explorar información sobre videojuegos. La aplicación ofrece una interfaz intuitiva para buscar, descubrir y gestionar una biblioteca personal de videojuegos. 
 ## Lista de características 
 - **Splash Screen**: Pantalla de inicio que muestra el logo y nombre de la aplicación. 
-- **Home Screen**: Pantalla principal con una lista de los últimos éxitos y los juegos más esperados. 
+- **Home Screen**: Pantalla principal con una lista de los mejores videojuegos y una ruleta con la cual obtener recomendaciones aleatorias. 
 - **Navegación**: Menú lateral para navegar entre las diferentes secciones de la aplicación (Perfil, Explorar juegos, Mi biblioteca). 
-- **Perfil de Usuario**: Pantalla que muestra la información del usuario, incluyendo juegos gustados, por jugar y jugados. 
+- **Perfil de Usuario**: Pantalla que muestra la información del usuario. 
 - **Explorar Juegos**: Pantalla para buscar videojuegos con filtrado y ordenamiento por calificación. 
 - **Biblioteca**: Sección para gestionar los juegos favoritos, guardados y completados del usuario. 
 - **Detalle del Videojuego**: Visualización de información detallada de cada juego (nombre, género, calificación, plataformas, año). 
 - **Tarjeta de Videojuego**: Widget reutilizable para mostrar información resumida de un videojuego (imagen, nombre, calificación). 
 ## Lista de funcionalidades más relevantes 
 - **Búsqueda y filtrado de videojuegos**: Los usuarios pueden buscar videojuegos por nombre y ordenar los resultados por calificación. 
+- **Uso de una API externa**: La aplicación obtiene información de videojuegos desde una API externa y la almacena localmente.
+- **Búsqueda por voz**: Los usuarios pueden utilizar comandos de voz para realizar búsquedas rápidas de videojuegos mediante reconocimiento de voz.
 - **Gestión de la biblioteca personal**: La aplicación permite a los usuarios marcar juegos como favoritos, guardados o completados. 
 - **Visualización de detalles del videojuego**: Los usuarios pueden ver información detallada sobre cada videojuego. 
 - **Navegación intuitiva**: La aplicación ofrece una navegación fácil de usar a través de un menú lateral y una estructura de pestañas en la biblioteca. 
@@ -69,10 +71,17 @@ Game Gauge es una aplicación móvil desarrollada en Flutter que permite a los u
 Puedes probar la aplicación descargando el APK:
 
 [ Descargar APK (v1.0.0)](https://github.com/xWTomasWx/VideogameRating/releases/download/v1.0.0/game_gauge.apk)
+
+**Información importante**: 
+- La primera vez que se inicie la aplicación puede demorar unos minutos, debido a la carga inicial de videojuegos en la base de datos.
+- Se necesita acceso a internet para que la app funcione correctamente.
+
 ## Recursos generados 
 - [Enlace del proyecto en github](https://github.com/xWTomasWx/VideogameRating)
 - [Enlace presentación](https://drive.google.com/file/d/1X0jYLj_HepNChIGcx9ltIi3TE5Sxsyjs/view?usp=sharing)
 
+**Diagrama de flujo:**
+![Diagrama de flujo](assets/Diagrama/flujo.png)
 
 **Diagrama de clases:**
 ``` mermaid 
