@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:videogame_rating/data/models/preferences_model.dart';
-import 'package:videogame_rating/widget/app_drawer.dart';
-import 'package:videogame_rating/data/services/database_helper.dart';
+import 'package:data_nime/data/models/preferences_model.dart';
+import 'package:data_nime/widget/app_drawer.dart';
+import 'package:data_nime/data/services/database_helper.dart';
 
 class PreferencesPage extends StatefulWidget {
   const PreferencesPage({super.key});

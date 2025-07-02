@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/domain/entities/videogame.dart';
-import 'package:videogame_rating/data/services/database_helper.dart';
+import 'package:data_nime/domain/entities/videogame.dart';
+import 'package:data_nime/data/services/database_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:videogame_rating/data/models/preferences_model.dart';
+import 'package:data_nime/data/models/preferences_model.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;

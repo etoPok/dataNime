@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/widget/app_drawer.dart';
-import 'package:videogame_rating/pages/feedback.dart';
+import 'package:data_nime/widget/app_drawer.dart';
+import 'package:data_nime/pages/feedback.dart';
 
 class AboutPage extends StatefulWidget {
   static const routeName = '/about';

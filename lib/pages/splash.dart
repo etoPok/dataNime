@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/pages/home.dart';
-import 'package:videogame_rating/data/services/import_games.dart';
+import 'package:data_nime/pages/home.dart';
+import 'package:data_nime/data/services/import_games.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

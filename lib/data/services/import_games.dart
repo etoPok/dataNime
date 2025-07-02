@@ -1,6 +1,6 @@
-import 'package:videogame_rating/domain/entities/videogame.dart';
-import 'package:videogame_rating/data/services/database_helper.dart';
-import 'package:videogame_rating/data/services/rawg_service.dart';
+import 'package:data_nime/domain/entities/videogame.dart';
+import 'package:data_nime/data/services/database_helper.dart';
+import 'package:data_nime/data/services/rawg_service.dart';
 
 Future<void> importGamesFromApi() async {
   final rawgService = RawgService();

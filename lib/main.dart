@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/pages/splash.dart';
-import 'package:videogame_rating/theme/theme.dart';
-import 'package:videogame_rating/theme/util.dart';
-import 'package:videogame_rating/pages/profile.dart';
-import 'package:videogame_rating/pages/games.dart';
-import 'package:videogame_rating/pages/library.dart';
-import 'package:videogame_rating/pages/home.dart';
-import 'package:videogame_rating/pages/about.dart';
-import 'package:videogame_rating/pages/feedback.dart';
-import 'package:videogame_rating/pages/preferences.dart';
-import 'package:videogame_rating/data/models/preferences_model.dart';
+import 'package:data_nime/pages/splash.dart';
+import 'package:data_nime/theme/theme.dart';
+import 'package:data_nime/theme/util.dart';
+import 'package:data_nime/pages/profile.dart';
+import 'package:data_nime/pages/games.dart';
+import 'package:data_nime/pages/library.dart';
+import 'package:data_nime/pages/home.dart';
+import 'package:data_nime/pages/about.dart';
+import 'package:data_nime/pages/feedback.dart';
+import 'package:data_nime/pages/preferences.dart';
+import 'package:data_nime/data/models/preferences_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {

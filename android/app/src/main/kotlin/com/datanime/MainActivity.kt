@@ -1,4 +1,4 @@
-package cl.blitzy.gamegauge
+package com.datanime
 
 import io.flutter.embedding.android.FlutterActivity
 

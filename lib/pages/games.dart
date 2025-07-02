@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/domain/entities/videogame.dart';
-import 'package:videogame_rating/data/services/database_helper.dart';
-import 'package:videogame_rating/widget/app_drawer.dart';
-import 'package:videogame_rating/pages/game_preview.dart';
-import 'package:videogame_rating/data/models/preferences_model.dart';
+import 'package:data_nime/domain/entities/videogame.dart';
+import 'package:data_nime/data/services/database_helper.dart';
+import 'package:data_nime/widget/app_drawer.dart';
+import 'package:data_nime/pages/game_preview.dart';
+import 'package:data_nime/data/models/preferences_model.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 

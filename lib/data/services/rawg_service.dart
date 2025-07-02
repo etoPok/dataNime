@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:videogame_rating/domain/entities/videogame.dart';
-import 'package:videogame_rating/domain/entities/genre_translations.dart';
+import 'package:data_nime/domain/entities/videogame.dart';
+import 'package:data_nime/domain/entities/genre_translations.dart';
 
 class RawgService {
   final String _apiKey = 'eb23da9e656e4b40a1014b96087bfdd6'; // Tu API Key

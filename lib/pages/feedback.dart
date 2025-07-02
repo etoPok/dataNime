@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:videogame_rating/domain/entities/question.dart';
+import 'package:data_nime/domain/entities/question.dart';
 
 class FeedbackPage extends StatefulWidget {
   static const routeName = '/feedback';

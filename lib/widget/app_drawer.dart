@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:videogame_rating/pages/home.dart';
-import 'package:videogame_rating/pages/preferences.dart';
-import 'package:videogame_rating/pages/profile.dart';
-import 'package:videogame_rating/pages/games.dart';
-import 'package:videogame_rating/pages/library.dart';
-import 'package:videogame_rating/pages/about.dart';
+import 'package:data_nime/pages/home.dart';
+import 'package:data_nime/pages/preferences.dart';
+import 'package:data_nime/pages/profile.dart';
+import 'package:data_nime/pages/games.dart';
+import 'package:data_nime/pages/library.dart';
+import 'package:data_nime/pages/about.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});

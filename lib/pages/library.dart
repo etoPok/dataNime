@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:videogame_rating/widget/app_drawer.dart';
-import 'package:videogame_rating/widget/card_videogame.dart';
-import 'package:videogame_rating/domain/entities/videogame.dart';
-import 'package:videogame_rating/data/services/database_helper.dart';
-import 'package:videogame_rating/pages/game_preview.dart';
+import 'package:data_nime/widget/app_drawer.dart';
+import 'package:data_nime/widget/card_videogame.dart';
+import 'package:data_nime/domain/entities/videogame.dart';
+import 'package:data_nime/data/services/database_helper.dart';
+import 'package:data_nime/pages/game_preview.dart';
 
 class LibraryPage extends StatefulWidget {
   static const routeName = '/library';
