@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:data_nime/pages/home.dart';
-import 'package:data_nime/data/services/import_games.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import "package:data_nime/data/services/jikan_service.dart";
 
 class SplashScreen extends StatefulWidget {
@@ -22,15 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _loadDataAndNavigate() async {
-    // final prefs = await SharedPreferences.getInstance();
-    // final alreadyImported = prefs.getBool('games_imported') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    final alreadyImported = prefs.getBool('games_imported') ?? false;
 
-    // if (!alreadyImported) {
-    //   await importGamesFromApi();
-    //   await prefs.setBool('games_imported', true);
-    // }
-
-    await jikanGetAllAnimes();
+    // vea la cantidad importada en la funcion de importacion.
+    // si permite volver a importar con alreadyImported=false
+    // entonces antes debe limpiar la base de datos
+    if (!alreadyImported) {
+      await jikanImportAnimes();
+      await prefs.setBool('games_imported', true);
+    }
 
     await Future.delayed(Duration(seconds: 2));
     if (mounted) {
