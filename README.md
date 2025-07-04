@@ -53,7 +53,7 @@ La colección de pruebas puede encontrarse aquí:
 ## Estructura del Proyecto
 
 El proyecto está organizado en capas siguiendo una arquitectura limpia y modular. A continuación, se describe el propósito de cada carpeta:
-
+```
 lib/
 ├── data/ # Datos crudos: modelos y servicios externos
 │ ├── models/ # Modelos de datos o archivos base
@@ -70,3 +70,4 @@ lib/
 ├── widget/ # Widgets reutilizables (tarjetas, botones, listas)
 │
 └── main.dart # Punto de entrada de la aplicación
+```
