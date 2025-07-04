@@ -7,7 +7,9 @@
 
 - [Datos de los creadores](#datos-de-los-creadores)
 
-- [API Utilizada — Jikan](#api-utilizada---jikan)
+- [API Utilizada - Jikan](#api-utilizada---jikan)
+
+- [Estructura del Proyecto](#estructura-del-proyecto)
 
 
 ## Datos de los creadores
@@ -28,9 +30,9 @@
 Se realizaron pruebas para comprobar el funcionamiento de la API antes de integrarla en la app. Las evidencias y endpoints utilizados se detallan a continuación.
 
 ### Endpoints probados:
-Búsqueda de animes relacionados a naruto: `GET /anime?q=naruto&limit=3`
-Detalle de un anime específico (Fullmetal Alchemist): `GET /anime/5114`
-Personajes de un anime (Fullmetal Alchemist): `GET /anime/5114/characters`
+- Búsqueda de animes relacionados a naruto: `GET /anime?q=naruto&limit=3`
+- Detalle de un anime específico (Fullmetal Alchemist): `GET /anime/5114`
+- Personajes de un anime (Fullmetal Alchemist): `GET /anime/5114/characters`
 
 ### Evidencia de pruebas
 
@@ -41,12 +43,30 @@ Las respuestas de la API se obtuvieron usando Postman. A continuación, se inclu
 - [`respuesta_personajes_fullmetal.json`](docs/api-jikan/respuesta_FMA_personajes.json)
 
 La colección de pruebas puede encontrarse aquí:  
-[`jikan_api_test_collection.json`](docs/api-jikan/Jikan API.postman_collection.json)
+[`jikan_api_test_collection.json`](docs/api-jikan/Jikan%20API.postman_collection.json)
 
 
 ### Referencia oficial de la API
 
 - [https://docs.api.jikan.moe/](https://docs.api.jikan.moe/)
 
+## Estructura del Proyecto
 
+El proyecto está organizado en capas siguiendo una arquitectura limpia y modular. A continuación, se describe el propósito de cada carpeta:
 
+lib/
+├── data/ # Datos crudos: modelos y servicios externos
+│ ├── models/ # Modelos de datos o archivos base
+│ └── services/ # Servicios de conexión a la API Jikan
+│
+├── domain/ # Lógica central: entidades y casos de uso
+│ └── entities/ # Entidades de dominio (compartidas)
+│
+├── pages/ # Pantallas principales de la app (UI de cada vista)
+│ # Ej: HomePage, LibraryPage, PreferencesPage, etc.
+│
+├── theme/ # Configuración del tema visual: colores, estilos
+│
+├── widget/ # Widgets reutilizables (tarjetas, botones, listas)
+│
+└── main.dart # Punto de entrada de la aplicación
