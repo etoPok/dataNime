@@ -1,0 +1,523 @@
+{
+    "pagination": {
+        "last_visible_page": 10,
+        "has_next_page": true,
+        "current_page": 1,
+        "items": {
+            "count": 3,
+            "total": 30,
+            "per_page": 3
+        }
+    },
+    "data": [
+        {
+            "mal_id": 20,
+            "url": "https://myanimelist.net/anime/20/Naruto",
+            "images": {
+                "jpg": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/1141/142503.jpg",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/1141/142503t.jpg",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/1141/142503l.jpg"
+                },
+                "webp": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/1141/142503.webp",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/1141/142503t.webp",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/1141/142503l.webp"
+                }
+            },
+            "trailer": {
+                "youtube_id": null,
+                "url": null,
+                "embed_url": null,
+                "images": {
+                    "image_url": null,
+                    "small_image_url": null,
+                    "medium_image_url": null,
+                    "large_image_url": null,
+                    "maximum_image_url": null
+                }
+            },
+            "approved": true,
+            "titles": [
+                {
+                    "type": "Default",
+                    "title": "Naruto"
+                },
+                {
+                    "type": "Synonym",
+                    "title": "NARUTO"
+                },
+                {
+                    "type": "Japanese",
+                    "title": "ナルト"
+                },
+                {
+                    "type": "English",
+                    "title": "Naruto"
+                }
+            ],
+            "title": "Naruto",
+            "title_english": "Naruto",
+            "title_japanese": "ナルト",
+            "title_synonyms": [
+                "NARUTO"
+            ],
+            "type": "TV",
+            "source": "Manga",
+            "episodes": 220,
+            "status": "Finished Airing",
+            "airing": false,
+            "aired": {
+                "from": "2002-10-03T00:00:00+00:00",
+                "to": "2007-02-08T00:00:00+00:00",
+                "prop": {
+                    "from": {
+                        "day": 3,
+                        "month": 10,
+                        "year": 2002
+                    },
+                    "to": {
+                        "day": 8,
+                        "month": 2,
+                        "year": 2007
+                    }
+                },
+                "string": "Oct 3, 2002 to Feb 8, 2007"
+            },
+            "duration": "23 min per ep",
+            "rating": "PG-13 - Teens 13 or older",
+            "score": 8.01,
+            "scored_by": 2069018,
+            "rank": 667,
+            "popularity": 9,
+            "members": 3005445,
+            "favorites": 83552,
+            "synopsis": "Moments before Naruto Uzumaki's birth, a huge demon known as the Nine-Tailed Fox attacked Konohagakure, the Hidden Leaf Village, and wreaked havoc. In order to put an end to the demon's rampage, the leader of the village, the Fourth Hokage, sacrificed his life and sealed the monstrous beast inside the newborn Naruto.\n\nIn the present, Naruto is a hyperactive and knuckle-headed ninja growing up within Konohagakure. Shunned because of the demon inside him, Naruto struggles to find his place in the village. His one burning desire to become the Hokage and be acknowledged by the villagers who despise him. However, while his goal leads him to unbreakable bonds with lifelong friends, it also lands him in the crosshairs of many deadly foes.\n\n[Written by MAL Rewrite]",
+            "background": "Naruto adapts the first 27 volumes of the original manga. It received numerous awards during its airing, including the \"Best Full-Length Animation Program Award\" in the Third UStv Awards and the 38th \"Best Animated Show\" in IGN's Top 100 Animated Series.",
+            "season": "fall",
+            "year": 2002,
+            "broadcast": {
+                "day": "Thursdays",
+                "time": "19:30",
+                "timezone": "Asia/Tokyo",
+                "string": "Thursdays at 19:30 (JST)"
+            },
+            "producers": [
+                {
+                    "mal_id": 16,
+                    "type": "anime",
+                    "name": "TV Tokyo",
+                    "url": "https://myanimelist.net/anime/producer/16/TV_Tokyo"
+                },
+                {
+                    "mal_id": 17,
+                    "type": "anime",
+                    "name": "Aniplex",
+                    "url": "https://myanimelist.net/anime/producer/17/Aniplex"
+                },
+                {
+                    "mal_id": 1365,
+                    "type": "anime",
+                    "name": "Shueisha",
+                    "url": "https://myanimelist.net/anime/producer/1365/Shueisha"
+                }
+            ],
+            "licensors": [
+                {
+                    "mal_id": 119,
+                    "type": "anime",
+                    "name": "VIZ Media",
+                    "url": "https://myanimelist.net/anime/producer/119/VIZ_Media"
+                }
+            ],
+            "studios": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Pierrot",
+                    "url": "https://myanimelist.net/anime/producer/1/Pierrot"
+                }
+            ],
+            "genres": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Action",
+                    "url": "https://myanimelist.net/anime/genre/1/Action"
+                },
+                {
+                    "mal_id": 2,
+                    "type": "anime",
+                    "name": "Adventure",
+                    "url": "https://myanimelist.net/anime/genre/2/Adventure"
+                },
+                {
+                    "mal_id": 10,
+                    "type": "anime",
+                    "name": "Fantasy",
+                    "url": "https://myanimelist.net/anime/genre/10/Fantasy"
+                }
+            ],
+            "explicit_genres": [],
+            "themes": [
+                {
+                    "mal_id": 17,
+                    "type": "anime",
+                    "name": "Martial Arts",
+                    "url": "https://myanimelist.net/anime/genre/17/Martial_Arts"
+                }
+            ],
+            "demographics": [
+                {
+                    "mal_id": 27,
+                    "type": "anime",
+                    "name": "Shounen",
+                    "url": "https://myanimelist.net/anime/genre/27/Shounen"
+                }
+            ]
+        },
+        {
+            "mal_id": 16870,
+            "url": "https://myanimelist.net/anime/16870/The_Last__Naruto_the_Movie",
+            "images": {
+                "jpg": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/1491/134498.jpg",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/1491/134498t.jpg",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/1491/134498l.jpg"
+                },
+                "webp": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/1491/134498.webp",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/1491/134498t.webp",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/1491/134498l.webp"
+                }
+            },
+            "trailer": {
+                "youtube_id": "tA3yE4_t6SY",
+                "url": "https://www.youtube.com/watch?v=tA3yE4_t6SY",
+                "embed_url": "https://www.youtube.com/embed/tA3yE4_t6SY?enablejsapi=1&wmode=opaque&autoplay=1",
+                "images": {
+                    "image_url": "https://img.youtube.com/vi/tA3yE4_t6SY/default.jpg",
+                    "small_image_url": "https://img.youtube.com/vi/tA3yE4_t6SY/sddefault.jpg",
+                    "medium_image_url": "https://img.youtube.com/vi/tA3yE4_t6SY/mqdefault.jpg",
+                    "large_image_url": "https://img.youtube.com/vi/tA3yE4_t6SY/hqdefault.jpg",
+                    "maximum_image_url": "https://img.youtube.com/vi/tA3yE4_t6SY/maxresdefault.jpg"
+                }
+            },
+            "approved": true,
+            "titles": [
+                {
+                    "type": "Default",
+                    "title": "The Last: Naruto the Movie"
+                },
+                {
+                    "type": "Synonym",
+                    "title": "Naruto Movie 10: Naruto the Movie: The Last,Naruto: Shippuuden Movie 7 - The Last"
+                },
+                {
+                    "type": "Japanese",
+                    "title": "THE LAST NARUTO THE MOVIE"
+                },
+                {
+                    "type": "English",
+                    "title": "Naruto Shippuden the Movie 7: The Last"
+                },
+                {
+                    "type": "German",
+                    "title": "Naruto Film 7: The Last"
+                },
+                {
+                    "type": "Spanish",
+                    "title": "Naruto Película 7: The Last"
+                },
+                {
+                    "type": "French",
+                    "title": "Naruto Film 7: The Last"
+                }
+            ],
+            "title": "The Last: Naruto the Movie",
+            "title_english": "Naruto Shippuden the Movie 7: The Last",
+            "title_japanese": "THE LAST NARUTO THE MOVIE",
+            "title_synonyms": [
+                "Naruto Movie 10: Naruto the Movie: The Last,Naruto: Shippuuden Movie 7 - The Last"
+            ],
+            "type": "Movie",
+            "source": "Manga",
+            "episodes": 1,
+            "status": "Finished Airing",
+            "airing": false,
+            "aired": {
+                "from": "2014-12-06T00:00:00+00:00",
+                "to": null,
+                "prop": {
+                    "from": {
+                        "day": 6,
+                        "month": 12,
+                        "year": 2014
+                    },
+                    "to": {
+                        "day": null,
+                        "month": null,
+                        "year": null
+                    }
+                },
+                "string": "Dec 6, 2014"
+            },
+            "duration": "1 hr 52 min",
+            "rating": "PG-13 - Teens 13 or older",
+            "score": 7.79,
+            "scored_by": 427174,
+            "rank": 1093,
+            "popularity": 362,
+            "members": 645192,
+            "favorites": 2285,
+            "synopsis": "Two years have passed since the end of the Fourth Great Ninja War. Konohagakure has remained in a state of peace and harmony—until Sixth Hokage Kakashi Hatake notices the moon is dangerously approaching the Earth, posing the threat of planetary ruin.\n\nAmidst the grave ordeal, Konoha is invaded by a new evil, Toneri Oosutuski, who suddenly abducts Hinata Hyuuga's little sister Hanabi. Kakashi dispatches a skilled ninja team comprised of Naruto Uzumaki, Sakura Haruno, Shikamaru Nara, Sai, and Hinata in an effort to rescue Hanabi from the diabolical clutches of Toneri. However, during their mission, the team faces several obstacles that challenge them, foiling their efforts.\n\nWith her abduction, the relationships the team share with one another are tested, and with the world reaching the brink of destruction, they must race against time to ensure the safety of their planet. Meanwhile, as the battle ensues, Naruto is driven to fight for something greater than he has ever imagined—love.\n\n[Written by MAL Rewrite]",
+            "background": "The events in the film The Last: Naruto the Movie take place chronologically between chapters 699 and 700 of the original manga. It is the tenth animated film in the Naruto series and was made to commemorate the manga's 15th anniversary.",
+            "season": null,
+            "year": null,
+            "broadcast": {
+                "day": null,
+                "time": null,
+                "timezone": null,
+                "string": null
+            },
+            "producers": [
+                {
+                    "mal_id": 16,
+                    "type": "anime",
+                    "name": "TV Tokyo",
+                    "url": "https://myanimelist.net/anime/producer/16/TV_Tokyo"
+                },
+                {
+                    "mal_id": 1365,
+                    "type": "anime",
+                    "name": "Shueisha",
+                    "url": "https://myanimelist.net/anime/producer/1365/Shueisha"
+                }
+            ],
+            "licensors": [
+                {
+                    "mal_id": 119,
+                    "type": "anime",
+                    "name": "VIZ Media",
+                    "url": "https://myanimelist.net/anime/producer/119/VIZ_Media"
+                }
+            ],
+            "studios": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Pierrot",
+                    "url": "https://myanimelist.net/anime/producer/1/Pierrot"
+                }
+            ],
+            "genres": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Action",
+                    "url": "https://myanimelist.net/anime/genre/1/Action"
+                },
+                {
+                    "mal_id": 2,
+                    "type": "anime",
+                    "name": "Adventure",
+                    "url": "https://myanimelist.net/anime/genre/2/Adventure"
+                },
+                {
+                    "mal_id": 10,
+                    "type": "anime",
+                    "name": "Fantasy",
+                    "url": "https://myanimelist.net/anime/genre/10/Fantasy"
+                },
+                {
+                    "mal_id": 22,
+                    "type": "anime",
+                    "name": "Romance",
+                    "url": "https://myanimelist.net/anime/genre/22/Romance"
+                }
+            ],
+            "explicit_genres": [],
+            "themes": [],
+            "demographics": [
+                {
+                    "mal_id": 27,
+                    "type": "anime",
+                    "name": "Shounen",
+                    "url": "https://myanimelist.net/anime/genre/27/Shounen"
+                }
+            ]
+        },
+        {
+            "mal_id": 28755,
+            "url": "https://myanimelist.net/anime/28755/Boruto__Naruto_the_Movie",
+            "images": {
+                "jpg": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/4/78280.jpg",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/4/78280t.jpg",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/4/78280l.jpg"
+                },
+                "webp": {
+                    "image_url": "https://cdn.myanimelist.net/images/anime/4/78280.webp",
+                    "small_image_url": "https://cdn.myanimelist.net/images/anime/4/78280t.webp",
+                    "large_image_url": "https://cdn.myanimelist.net/images/anime/4/78280l.webp"
+                }
+            },
+            "trailer": {
+                "youtube_id": "ld-oqpvOBAk",
+                "url": "https://www.youtube.com/watch?v=ld-oqpvOBAk",
+                "embed_url": "https://www.youtube.com/embed/ld-oqpvOBAk?enablejsapi=1&wmode=opaque&autoplay=1",
+                "images": {
+                    "image_url": "https://img.youtube.com/vi/ld-oqpvOBAk/default.jpg",
+                    "small_image_url": "https://img.youtube.com/vi/ld-oqpvOBAk/sddefault.jpg",
+                    "medium_image_url": "https://img.youtube.com/vi/ld-oqpvOBAk/mqdefault.jpg",
+                    "large_image_url": "https://img.youtube.com/vi/ld-oqpvOBAk/hqdefault.jpg",
+                    "maximum_image_url": "https://img.youtube.com/vi/ld-oqpvOBAk/maxresdefault.jpg"
+                }
+            },
+            "approved": true,
+            "titles": [
+                {
+                    "type": "Default",
+                    "title": "Boruto: Naruto the Movie"
+                },
+                {
+                    "type": "Synonym",
+                    "title": "Gekijouban Naruto (2015)"
+                },
+                {
+                    "type": "Japanese",
+                    "title": "BORUTO -NARUTO THE MOVIE-"
+                },
+                {
+                    "type": "English",
+                    "title": "Boruto: Naruto the Movie"
+                },
+                {
+                    "type": "German",
+                    "title": "Boruto: Naruto The Movie"
+                },
+                {
+                    "type": "Spanish",
+                    "title": "Boruto: Naruto La Película"
+                },
+                {
+                    "type": "French",
+                    "title": "Boruto: Naruto Le Film"
+                }
+            ],
+            "title": "Boruto: Naruto the Movie",
+            "title_english": "Boruto: Naruto the Movie",
+            "title_japanese": "BORUTO -NARUTO THE MOVIE-",
+            "title_synonyms": [
+                "Gekijouban Naruto (2015)"
+            ],
+            "type": "Movie",
+            "source": "Manga",
+            "episodes": 1,
+            "status": "Finished Airing",
+            "airing": false,
+            "aired": {
+                "from": "2015-08-07T00:00:00+00:00",
+                "to": null,
+                "prop": {
+                    "from": {
+                        "day": 7,
+                        "month": 8,
+                        "year": 2015
+                    },
+                    "to": {
+                        "day": null,
+                        "month": null,
+                        "year": null
+                    }
+                },
+                "string": "Aug 7, 2015"
+            },
+            "duration": "1 hr 35 min",
+            "rating": "PG-13 - Teens 13 or older",
+            "score": 7.38,
+            "scored_by": 311443,
+            "rank": 2487,
+            "popularity": 506,
+            "members": 485115,
+            "favorites": 990,
+            "synopsis": "The spirited Boruto Uzumaki, son of Seventh Hokage Naruto, is a skilled ninja who possesses the same brashness and passion his father once had. However, the constant absence of his father, who is busy with his Hokage duties, puts a damper on Boruto's fire. Upon learning that his father will watch the aspiring ninjas who will participate in the upcoming Chunin exams, Boruto is driven to prove to him that he is worthy of his attention. In order to do so, he enlists the help of Naruto's childhood friend and rival, Sasuke Uchiha. \n\nThe Chunin exams begin and progress smoothly, until suddenly, the Konohagakure is attacked by a new foe that threatens the long-standing peace of the village. Now facing real danger, Naruto and his comrades must work together to protect the future of their cherished home and defeat the evil that terrorizes their world. As this battle ensues, Boruto comes to realize the struggles his father once experienced—and what it truly means to be a ninja.\n\n[Written by MAL Rewrite]",
+            "background": "Boruto: Naruto the Movie is officially the highest grossing feature film in the entire Naruto franchise, and was number 11 on Japan's Top Grossing Domestic Movies of 2015. This is the first time that original creator Masashi Kishimoto has written the entire screenplay for a Naruto movie.",
+            "season": null,
+            "year": null,
+            "broadcast": {
+                "day": null,
+                "time": null,
+                "timezone": null,
+                "string": null
+            },
+            "producers": [
+                {
+                    "mal_id": 245,
+                    "type": "anime",
+                    "name": "TOHO",
+                    "url": "https://myanimelist.net/anime/producer/245/TOHO"
+                },
+                {
+                    "mal_id": 1365,
+                    "type": "anime",
+                    "name": "Shueisha",
+                    "url": "https://myanimelist.net/anime/producer/1365/Shueisha"
+                }
+            ],
+            "licensors": [
+                {
+                    "mal_id": 119,
+                    "type": "anime",
+                    "name": "VIZ Media",
+                    "url": "https://myanimelist.net/anime/producer/119/VIZ_Media"
+                }
+            ],
+            "studios": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Pierrot",
+                    "url": "https://myanimelist.net/anime/producer/1/Pierrot"
+                }
+            ],
+            "genres": [
+                {
+                    "mal_id": 1,
+                    "type": "anime",
+                    "name": "Action",
+                    "url": "https://myanimelist.net/anime/genre/1/Action"
+                },
+                {
+                    "mal_id": 2,
+                    "type": "anime",
+                    "name": "Adventure",
+                    "url": "https://myanimelist.net/anime/genre/2/Adventure"
+                },
+                {
+                    "mal_id": 10,
+                    "type": "anime",
+                    "name": "Fantasy",
+                    "url": "https://myanimelist.net/anime/genre/10/Fantasy"
+                }
+            ],
+            "explicit_genres": [],
+            "themes": [
+                {
+                    "mal_id": 17,
+                    "type": "anime",
+                    "name": "Martial Arts",
+                    "url": "https://myanimelist.net/anime/genre/17/Martial_Arts"
+                }
+            ],
+            "demographics": [
+                {
+                    "mal_id": 27,
+                    "type": "anime",
+                    "name": "Shounen",
+                    "url": "https://myanimelist.net/anime/genre/27/Shounen"
+                }
+            ]
+        }
+    ]
+}
