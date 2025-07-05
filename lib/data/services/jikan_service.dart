@@ -105,3 +105,43 @@ Future<List<AnimePreview>> jikanGetAnimePreviews(int page) async {
 
   return animesPreviews;
 }
+
+Future<Anime> jikanGetAnimeById(int id) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/anime/$id");
+  final response = await http.get(url);
+
+  if (response.statusCode != 200) {
+    throw Exception(
+      "Error al cargar animes de Jikan (status: ${response.statusCode})",
+    );
+  }
+
+  final Map<String, dynamic> json = jsonDecode(response.body);
+  final anime = json["data"];
+
+  return Anime(
+    title: anime["title"] ?? "",
+    titleEnglish: anime["title_english"] ?? "",
+    titleJapanese: anime["title_japanese"] ?? "",
+    titleSpanish:
+        (anime["titles"] as List).firstWhere(
+          (title) => title["type"] == "Spanish",
+          orElse: () => {"title": ""},
+        )["title"] ??
+        "",
+    synopsis: anime["synopsis"] ?? "",
+    type: anime["type"] ?? "",
+    source: anime["source"] ?? "",
+    episodes: anime["episodes"] ?? 0,
+    status: anime["status"] ?? "",
+    aired: anime["aired"]["string"] ?? "",
+    genres:
+        (anime["genres"] as List)
+            .map((genre) => genre["name"] as String)
+            .toList(),
+    explicitGenres:
+        (anime["explicit_genres"] as List)
+            .map<String>((genre) => genre["name"] as String)
+            .toList(),
+  );
+}

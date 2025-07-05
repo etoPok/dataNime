@@ -5,6 +5,7 @@ import 'package:data_nime/widget/app_drawer.dart';
 import 'package:data_nime/domain/entities/anime.dart';
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/widget/card_preview_anime.dart';
+import 'package:data_nime/pages/anime_info.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -74,10 +75,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   imageUrl: currentAnimes[index].urlImage,
                   gameName: currentAnimes[index].title,
                   rating: currentAnimes[index].score,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) =>
+                                AnimeInfoPage(animeId: currentAnimes[index].id),
+                      ),
+                    );
+                  },
                 );
               },
             ),
-
             SizedBox.shrink(),
           ],
         ),
