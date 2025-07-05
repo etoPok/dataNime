@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
-import 'package:data_nime/widget/card_videogame.dart';
 import 'package:data_nime/domain/entities/videogame.dart';
 import 'package:data_nime/data/services/database_helper.dart';
 import 'package:data_nime/pages/game_preview.dart';
@@ -82,11 +81,6 @@ class _LibraryPageState extends State<LibraryPage> {
               ),
             );
           },
-          child: GameCard(
-            imageUrl: juego.imagenUrl,
-            gameName: juego.nombre,
-            rating: juego.calificacion,
-          ),
         );
       },
     );

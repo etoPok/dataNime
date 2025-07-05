@@ -1,7 +1,10 @@
+import 'package:data_nime/domain/entities/anime_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
-import 'package:data_nime/data/services/database_helper.dart';
+//import 'package:data_nime/data/services/database_helper.dart';
 import 'package:data_nime/domain/entities/anime.dart';
+import 'package:data_nime/data/services/jikan_service.dart';
+import 'package:data_nime/widget/card_preview_anime.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,6 +17,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Anime> allAnimes = [];
+  final List<AnimePreview> currentAnimes = [];
 
   @override
   void initState() {
@@ -22,11 +26,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _loadAnimes() async {
-    final animes = await DatabaseHelper.instance.getAllAnimes();
+    // final animes = await DatabaseHelper.instance.getAllAnimes();
+    final animes = await jikanGetAnimePreviews(1);
+
     if (!mounted) return;
 
     setState(() {
-      allAnimes.addAll(animes);
+      // allAnimes.addAll(animes);
+      currentAnimes.addAll(animes);
     });
   }
 
@@ -48,25 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
           ),
           bottom: const TabBar(
-            tabs: [Tab(text: 'Mejores Animes'), Tab(text: 'Ruleta')]
+            tabs: [Tab(text: 'Mejores Animes'), Tab(text: 'Ruleta')],
           ),
         ),
         body: TabBarView(
           children: [
-            ListView.builder(
-              itemCount: allAnimes.length,
+            GridView.builder(
+              padding: const EdgeInsets.all(8),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+                childAspectRatio: 0.6,
+              ),
+              itemCount: currentAnimes.length,
               itemBuilder: (context, index) {
-                final anime = allAnimes[index];
-                return InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    title: Text(anime.title),
-                    subtitle: Text("${anime.id}")
-                  )
+                return PreviewAnimeCard(
+                  imageUrl: currentAnimes[index].urlImage,
+                  gameName: currentAnimes[index].title,
+                  rating: currentAnimes[index].score,
                 );
               },
             ),
-            SizedBox.shrink()
+
+            SizedBox.shrink(),
           ],
         ),
         drawer: const AppDrawer(),
