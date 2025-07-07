@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/anime.dart';
 import 'package:data_nime/utils/google_translator.dart';
+import 'package:data_nime/widget/anime_trailer.dart';
 
 class AnimeInfoPage extends StatefulWidget {
   final int animeId;
@@ -49,27 +50,96 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  anime.titleEnglish.isNotEmpty
-                      ? anime.titleEnglish
-                      : anime.title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        anime.urlImage,
+                        width: 150,
+                        height: 220,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            anime.titleEnglish.isNotEmpty
+                                ? anime.titleEnglish
+                                : anime.title,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text("Título japonés: ${anime.titleJapanese}"),
+                          Text("Tipo: ${anime.type}"),
+                          Text("Episodios: ${anime.episodes}"),
+                          Text("Estado: ${anime.status}"),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+                if (anime.urlTrailer.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Tráiler",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      AnimeTrailerPlayer(youtubeId: anime.urlTrailer),
+                      const SizedBox(height: 20),
+                    ],
+                  )
+                else
+                  const Text("Tráiler no disponible."),
+
+                // Géneros
+                const Text(
+                  "Géneros",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Wrap(
+                  spacing: 8,
+                  children:
+                      anime.genres
+                          .map((genre) => Chip(label: Text(genre)))
+                          .toList(),
+                ),
+                const SizedBox(height: 20),
+
+                // Sinopsis traducida
+                const Text(
+                  "Sinopsis",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text("Título en inglés: ${anime.titleEnglish}"),
-                Text("Título en japonés: ${anime.titleJapanese}"),
-                Text("Tipo: ${anime.type}"),
+                Text(anime.synopsis),
+
+                const SizedBox(height: 20),
+
+                // Otros detalles
+                const Text(
+                  "Detalles",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
                 Text("Fuente: ${anime.source}"),
-                Text("Episodios: ${anime.episodes}"),
-                Text("Estado: ${anime.status}"),
                 Text("Emitido: ${anime.aired}"),
-                const SizedBox(height: 12),
-                Text("Géneros: ${anime.genres.join(', ')}"),
-                const SizedBox(height: 12),
-                Text("Sinopsis:\n${anime.synopsis}"),
+                const SizedBox(height: 100),
               ],
             ),
           );

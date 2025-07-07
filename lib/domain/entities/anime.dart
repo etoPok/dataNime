@@ -17,6 +17,9 @@ class Anime {
   final List<String> _genres;
   final List<String> _explicitGenres;
 
+  final String _urlImage;
+  final String _urlTrailer;
+
   Anime({
     int id = 0,
     required String title,
@@ -31,6 +34,8 @@ class Anime {
     required String aired,
     required List<String> genres,
     List<String> explicitGenres = const [],
+    required String urlImage,
+    required String urlTrailer,
   }) : _id = id,
        _title = title,
        _titleEnglish = titleEnglish,
@@ -43,7 +48,9 @@ class Anime {
        _status = status,
        _aired = aired,
        _genres = genres,
-       _explicitGenres = explicitGenres;
+       _explicitGenres = explicitGenres,
+       _urlImage = urlImage,
+       _urlTrailer = urlTrailer;
 
   int get id {
     return _id;
@@ -97,6 +104,14 @@ class Anime {
     return _explicitGenres;
   }
 
+  String get urlImage {
+    return _urlImage;
+  }
+
+  String get urlTrailer {
+    return _urlTrailer;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       "title": _title,
@@ -111,6 +126,8 @@ class Anime {
       "aired": _aired,
       "genres": _genres.join(","),
       "explicitGenres": _explicitGenres.join(","),
+      "urlImage": _urlImage,
+      "urlTrailer": _urlTrailer,
     };
   }
 
@@ -129,6 +146,8 @@ class Anime {
       aired: map["aired"],
       genres: (map["genres"] as String).split(","),
       explicitGenres: (map["explicitGenres"] as String).split(","),
+      urlImage: map["urlImage"],
+      urlTrailer: map["urlTrailer"],
     );
   }
 
@@ -146,6 +165,8 @@ class Anime {
     String? aired,
     List<String>? genres,
     List<String>? explicitGenres,
+    String? urlImage,
+    String? urlTrailer,
   }) {
     return Anime(
       id: id ?? _id,
@@ -161,6 +182,8 @@ class Anime {
       aired: aired ?? _aired,
       genres: genres ?? _genres,
       explicitGenres: explicitGenres ?? _explicitGenres,
+      urlImage: urlImage ?? _urlImage,
+      urlTrailer: urlTrailer ?? _urlTrailer,
     );
   }
 }

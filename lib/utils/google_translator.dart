@@ -27,12 +27,15 @@ Future<Anime> translateAnime(Anime anime) async {
   final translatedExplicitGenres = await Future.wait(
     anime.explicitGenres.map(translateText),
   );
-
+  final translatedAired = await translateText(anime.aired);
+  final translatedSource = await translateText(anime.source);
   return anime.copyWith(
     synopsis: translatedSynopsis,
     status: translatedStatus,
     type: translatedType,
     genres: translatedGenres,
     explicitGenres: translatedExplicitGenres,
+    aired: translatedAired,
+    source: translatedSource,
   );
 }

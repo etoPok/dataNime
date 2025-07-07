@@ -69,6 +69,8 @@ Future<void> jikanImportAnimes() async {
             (anime["explicit_genres"] as List).map<String>((genre) {
               return genre["name"] as String;
             }).toList(),
+        urlImage: anime["images"]["jpg"]["large_image_url"] ?? "",
+        urlTrailer: anime["trailer"]["youtube_id"]?.toString() ?? "",
       ),
     );
   }
@@ -143,5 +145,7 @@ Future<Anime> jikanGetAnimeById(int id) async {
         (anime["explicit_genres"] as List)
             .map<String>((genre) => genre["name"] as String)
             .toList(),
+    urlImage: anime["images"]["jpg"]["large_image_url"] ?? "",
+    urlTrailer: anime["trailer"]["youtube_id"]?.toString() ?? "",
   );
 }
