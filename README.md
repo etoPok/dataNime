@@ -71,3 +71,19 @@ lib/
 │
 └── main.dart # Punto de entrada de la aplicación
 ```
+
+## Lista de actividades
+
+### José Peña
+- [ ] Desarrollar un widget para mostrar los animes en forma de tarjeta.
+- [ ] Crear una pantalla para visualizar la información de un anime.
+- [ ] Diseñar el logo de la aplicación.
+- [ ] Implementar las preferencias del usuario.
+- [ ] Implementar sección de noticias o novedades relacionadas con el anime.
+
+### Jostin Duval
+- [ ] Implementar la lógica para ver los mejores animes mediante una pantalla de exploración.
+- [ ] Crear una pantalla para visualizar la información de los personajes de un anime.
+- [ ] Implementar la lógica de favoritos utilizando una base de datos local.
+- [ ] Agregar filtros por género, estado o año.
+- [ ] Crear una pantalla de "Acerca de la app" con créditos.
