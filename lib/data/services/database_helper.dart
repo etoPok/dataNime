@@ -19,9 +19,6 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, fileName);
 
-    // await deleteDatabase(path);
-    // final newPath = join(dbPath, fileName);
-
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -40,7 +37,9 @@ class DatabaseHelper {
       status TEXT,
       aired TEXT,
       genres TEXT,
-      explicitGenres TEXT
+      explicitGenres TEXT,
+      urlImage TEXT,
+      urlTrailer TEXT
     )
     ''');
   }

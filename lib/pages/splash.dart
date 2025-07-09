@@ -20,17 +20,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _loadDataAndNavigate() async {
-    final prefs = await SharedPreferences.getInstance();
-    final alreadyImported = prefs.getBool('games_imported') ?? false;
-
-    // vea la cantidad importada en la funcion de importacion.
-    // si permite volver a importar con alreadyImported=false
-    // entonces antes debe limpiar la base de datos
-    if (!alreadyImported) {
-      await jikanImportAnimes();
-      await prefs.setBool('games_imported', true);
-    }
-
     await Future.delayed(Duration(seconds: 2));
     if (mounted) {
       Navigator.pushReplacement(
