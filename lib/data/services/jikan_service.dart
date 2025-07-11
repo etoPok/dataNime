@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:data_nime/domain/entities/anime.dart';
 import 'package:data_nime/domain/entities/anime_preview.dart';
 import 'package:data_nime/data/services/database_helper.dart';
+import 'package:data_nime/domain/entities/character_preview.dart';
+import 'package:data_nime/domain/entities/character.dart';
 
 Future<List<dynamic>> jikanGetAllAnimes() async {
   final List<dynamic> allAnimes = [];
@@ -147,5 +149,59 @@ Future<Anime> jikanGetAnimeById(int id) async {
             .toList(),
     urlImage: anime["images"]["jpg"]["large_image_url"] ?? "",
     urlTrailer: anime["trailer"]["youtube_id"]?.toString() ?? "",
+  );
+}
+
+Future<List<CharacterPreview>> jikanGetCharacterPreviewsById(int id) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/anime/$id/characters");
+  final response = await http.get(url);
+
+  if (response.statusCode != 200) {
+    throw Exception(
+      "Error al cargar personajes de anime de Jikan (status: ${response.statusCode})",
+    );
+  }
+
+  final Map<String, dynamic> json = jsonDecode(response.body);
+  final characters = json["data"];
+
+  final List<CharacterPreview> characterPreviews = [];
+
+  for (var character in characters) {
+    characterPreviews.add(CharacterPreview(
+      id: character["character"]["mal_id"],
+      urlImage: character["character"]["images"]["jpg"]["image_url"] ?? "",
+      name: character["character"]["name"] ?? ""
+    ));
+  }
+
+  return characterPreviews;
+}
+
+Future<Character> jikanGetCharacterFullById(int id) async {
+  final url = Uri.parse("https://api.jikan.moe/v4/characters/$id/full");
+  final response = await http.get(url);
+
+  if (response.statusCode != 200) {
+    throw Exception(
+      "Error al cargar personajes de anime de Jikan (status: ${response.statusCode})",
+    );
+  }
+
+  final Map<String, dynamic> json = jsonDecode(response.body);
+  final character = json["data"];
+
+  Map<String, String> voices = {};
+  for (var voice in (character["voices"] as List)) {
+    voices[voice["language"]] = voice["person"]["name"];
+  }
+
+  return Character(
+    id: character["mal_id"],
+    name: character["name"] ?? "",
+    about: character["about"] == null || (character["about"] as String).isEmpty
+      ? "Sin descripción" : character["about"],
+    urlImage: character["images"]["jpg"]["image_url"] ?? "",
+    voices: voices
   );
 }

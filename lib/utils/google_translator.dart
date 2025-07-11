@@ -1,5 +1,6 @@
 import 'package:translator/translator.dart';
 import 'package:data_nime/domain/entities/anime.dart';
+import 'package:data_nime/domain/entities/character.dart';
 
 final GoogleTranslator _translator = GoogleTranslator();
 
@@ -38,4 +39,9 @@ Future<Anime> translateAnime(Anime anime) async {
     aired: translatedAired,
     source: translatedSource,
   );
+}
+
+Future<Character> translateCharacter(Character character) async {
+  final translateAbout = await translateText(character.about);
+  return character.copyWith(about: translateAbout);
 }
