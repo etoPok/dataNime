@@ -11,14 +11,24 @@ import 'package:data_nime/pages/feedback.dart';
 import 'package:data_nime/pages/preferences.dart';
 import 'package:data_nime/data/models/preferences_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => PreferencesModel(),
-      child: const MyApp(),
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]).then((_) {
+    runApp(
+      ChangeNotifierProvider(
+        create: (_) => PreferencesModel(),
+        child: const MyApp(),
+      ),
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:flutter/services.dart';
 
 class AnimeTrailerPlayer extends StatefulWidget {
   final String youtubeId;
@@ -37,6 +38,7 @@ class _AnimeTrailerPlayerState extends State<AnimeTrailerPlayer> {
   @override
   void dispose() {
     _controller.close();
+    SystemChrome.setPreferredOrientations(DeviceOrientation.values);
     super.dispose();
   }
 }

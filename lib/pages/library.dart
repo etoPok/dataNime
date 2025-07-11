@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
 import 'package:data_nime/domain/entities/videogame.dart';
-import 'package:data_nime/data/services/database_helper.dart';
-import 'package:data_nime/pages/game_preview.dart';
 
 class LibraryPage extends StatefulWidget {
   static const routeName = '/library';
@@ -20,17 +18,6 @@ class _LibraryPageState extends State<LibraryPage> {
   @override
   void initState() {
     super.initState();
-    _loadGames();
-  }
-
-  Future<void> _loadGames() async {
-    final allGames = await DatabaseHelper.instance.getAllGames();
-
-    setState(() {
-      favoritos = allGames.where((j) => j.favorito).toList();
-      jugados = allGames.where((j) => j.jugado).toList();
-      pendientes = allGames.where((j) => j.pendiente).toList();
-    });
   }
 
   @override
@@ -68,20 +55,7 @@ class _LibraryPageState extends State<LibraryPage> {
     return ListView.builder(
       itemCount: juegos.length,
       itemBuilder: (context, index) {
-        final juego = juegos[index];
-
-        return InkWell(
-          onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) =>
-                        GamePreviewPage(juego: juego, onSaved: _loadGames),
-              ),
-            );
-          },
-        );
+        return InkWell(onTap: () async {});
       },
     );
   }
