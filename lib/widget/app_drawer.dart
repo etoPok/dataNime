@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:data_nime/pages/home.dart';
 import 'package:data_nime/pages/preferences.dart';
 import 'package:data_nime/pages/profile.dart';
-import 'package:data_nime/pages/games.dart';
+import 'package:data_nime/pages/anime_search.dart';
 import 'package:data_nime/pages/library.dart';
 import 'package:data_nime/pages/about.dart';
 
@@ -57,11 +57,11 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.search),
-            title: const Text('Explorar juegos'),
+            title: const Text('Explorar animes'),
             onTap: () {
-              if (currentRoute != GamePage.routeName) {
+              if (currentRoute != AnimeSearchPage.routeName) {
                 Navigator.pop(context);
-                Navigator.of(context).pushNamed(GamePage.routeName);
+                Navigator.of(context).pushNamed(AnimeSearchPage.routeName);
               } else {
                 Navigator.pop(context);
               }

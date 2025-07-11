@@ -251,7 +251,7 @@ Future<List<AnimePreview>> jikanGetRecommendationsPreviewByAnime(
 
 Future<List<AnimePreview>> jikanGetTopAnimePreviews(int page) async {
   final response = await http.get(
-    Uri.parse('https://api.jikan.moe/v4/top/anime?page=$page'),
+    Uri.parse('https://api.jikan.moe/v4/top/anime?page=$page&sfw=true'),
   );
 
   if (response.statusCode != 200) {
@@ -338,5 +338,62 @@ Future<List<String>> jikanGetCharacterImageUrls(int id) async {
 
   return images.map<String>((image) {
     return image["jpg"]["image_url"] ?? "";
+  }).toList();
+}
+
+Future<List<AnimePreview>> jikanSearchAnimePreviews(
+  String query, {
+  int page = 1,
+  List<int>? genres,
+}) async {
+  final genresParam =
+      genres != null && genres.isNotEmpty ? '&genres=${genres.join(",")}' : '';
+  final url = Uri.parse(
+    "https://api.jikan.moe/v4/anime?q=$query&page=$page&order_by=score&sort=desc$genresParam&sfw=true",
+  );
+  final response = await http.get(url);
+
+  if (response.statusCode != 200) {
+    throw Exception("Error al buscar animes");
+  }
+
+  final Map<String, dynamic> json = jsonDecode(response.body);
+  final animes = json["data"] as List<dynamic>;
+
+  return animes.map((anime) {
+    return AnimePreview(
+      id: anime["mal_id"],
+      score: (anime["score"] as num?)?.toDouble() ?? 0.0,
+      urlImage: anime["images"]["jpg"]["large_image_url"] as String,
+      title: anime["title_english"] ?? anime["title"],
+    );
+  }).toList();
+}
+
+Future<List<AnimePreview>> jikanGetTopAnimeByGenres(
+  int page,
+  List<int>? genres,
+) async {
+  final genresParam =
+      genres != null && genres.isNotEmpty ? '&genres=${genres.join(",")}' : '';
+  final url = Uri.parse(
+    'https://api.jikan.moe/v4/anime?order_by=score&sort=desc&page=$page$genresParam&sfw=true',
+  );
+  final response = await http.get(url);
+
+  if (response.statusCode != 200) {
+    throw Exception('Error al obtener top animes filtrados');
+  }
+
+  final data = jsonDecode(response.body);
+  final List<dynamic> animes = data['data'];
+
+  return animes.map<AnimePreview>((anime) {
+    return AnimePreview(
+      id: anime['mal_id'],
+      score: (anime['score'] as num?)?.toDouble() ?? 0.0,
+      urlImage: anime['images']['jpg']['large_image_url'] as String,
+      title: anime['title'],
+    );
   }).toList();
 }
