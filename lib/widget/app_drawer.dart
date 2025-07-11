@@ -25,7 +25,7 @@ class AppDrawer extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'Game Gauge',
+                  'dataNime',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),

@@ -52,6 +52,7 @@ flutter:
     - assets/profile.png
     - assets/Logo.png
     - lib/data/models/questions.json
+    - assets/anime_icon.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -82,5 +83,5 @@ flutter:
 flutter_launcher_icons:
  android: "ic_launcher" # Generar iconos para Android o reemplaza el vigente
  ios: false # Solo para Android
- image_path: "assets/Logo.png" # Ruta a tu archivo de icono
+ image_path: "assets/anime_icon.png" # Ruta a tu archivo de icono
  min_sdk_android: 21 # Mínimo SDK de Android soportado

@@ -28,10 +28,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final preferences = context.watch<PreferencesModel>();
 
-    TextTheme textTheme = createTextTheme(context, "Rubik", "Bungee");
+    TextTheme textTheme = createTextTheme(
+      context,
+      "M PLUS Rounded 1c",
+      "Mochiy Pop One",
+    );
     MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp(
-      title: 'Game Gauge',
+      title: 'dataNime',
       theme: theme.light(),
       darkTheme: theme.dark(),
       themeMode: preferences.themeMode,

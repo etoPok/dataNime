@@ -22,9 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (mounted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => MyHomePage(title: "Game Gauge"),
-        ),
+        MaterialPageRoute(builder: (context) => MyHomePage(title: "dataNime")),
       );
     }
   }
@@ -32,14 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF43464B),
+      backgroundColor: Color.fromRGBO(2, 2, 2, 1),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('assets/Logo.png'),
+            Image.asset('assets/anime_icon.png'),
             Text(
-              'Game Gauge',
+              'dataNime',
               style: Theme.of(
                 context,
               ).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.bold),
