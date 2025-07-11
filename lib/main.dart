@@ -12,6 +12,7 @@ import 'package:data_nime/pages/preferences.dart';
 import 'package:data_nime/data/models/preferences_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
+import 'package:data_nime/utils/route_observer.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
         FeedbackPage.routeName: (context) => const FeedbackPage(),
         PreferencesPage.routeName: (context) => PreferencesPage(),
       },
+      navigatorObservers: [routeObserver],
     );
   }
 }
