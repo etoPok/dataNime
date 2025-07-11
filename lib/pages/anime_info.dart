@@ -9,6 +9,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:data_nime/domain/entities/character.dart';
 import 'package:data_nime/domain/entities/anime_preview.dart';
 import 'package:data_nime/widget/card_preview_anime.dart';
+import 'package:data_nime/widget/app_drawer.dart';
+import 'package:data_nime/data/services/watchmode_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AnimeInfoPage extends StatefulWidget {
   final int animeId;
@@ -28,12 +31,23 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
   int? _expandCharacterIndex;
   int _indexToExpand = 0;
   int _visibleCharacterCount = 20;
+  List<StreamingPlatform> streamingPlatforms = [];
 
   @override
   void initState() {
     super.initState();
     futureAnime = jikanGetAnimeById(widget.animeId).then((anime) async {
       characterPreviews = await jikanGetCharacterPreviewsById(widget.animeId);
+
+      final titleToSearch =
+          anime.titleEnglish.isNotEmpty ? anime.titleEnglish : anime.title;
+      final watchmodeId = await WatchmodeService.searchAnimeId(titleToSearch);
+
+      if (watchmodeId != null) {
+        streamingPlatforms = await WatchmodeService.getStreamingPlatforms(
+          watchmodeId,
+        );
+      }
 
       return await translateAnime(anime);
     });
@@ -80,6 +94,22 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: OutlinedButton.icon(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.arrow_back),
+                      label: const Text("Volver"),
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -158,7 +188,51 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(anime.synopsis),
+                const SizedBox(height: 20),
 
+                //Plataformas
+                const Text(
+                  "Plataformas",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Wrap(
+                  spacing: 8,
+                  children:
+                      streamingPlatforms
+                          .map(
+                            (platform) => ActionChip(
+                              label: Text(platform.name),
+                              avatar: Icon(Icons.open_in_new, size: 18),
+                              onPressed: () async {
+                                final url = Uri.parse(platform.url);
+                                if (await canLaunchUrl(url)) {
+                                  await launchUrl(
+                                    url,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "Abierto en ${platform.name}",
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        "No se pudo abrir ${platform.name}",
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          )
+                          .toList(),
+                ),
                 const SizedBox(height: 20),
 
                 // Otros detalles
@@ -389,9 +463,9 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (_expandCharacterIndex != null)
+                              if (_expandCharacterIndex != null) {
                                 _restoreCharacterPreviews();
-
+                              }
                               _expandCharacterIndex = index;
                               _indexToExpand = (index ~/ 3) * 3;
 
@@ -463,6 +537,9 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
           );
         },
       ),
+
+      //Drawer
+      drawer: const AppDrawer(),
     );
   }
 }

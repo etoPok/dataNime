@@ -15,7 +15,6 @@ Future<String> translateText(
     final translation = await _translator.translate(text, from: from, to: to);
     return translation.text;
   } catch (e) {
-    print("Error al traducir: $e");
     return text;
   }
 }
