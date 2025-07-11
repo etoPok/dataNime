@@ -1,11 +1,14 @@
-import 'package:data_nime/domain/entities/anime_preview.dart';
+import 'package:data_nime/pages/character_info.dart';
+import 'package:data_nime/widget/card_preview_character.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
-//import 'package:data_nime/data/services/database_helper.dart';
-import 'package:data_nime/domain/entities/anime.dart';
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/widget/card_preview_anime.dart';
+import 'package:data_nime/widget/horizontal_card_list.dart';
+import 'package:data_nime/widget/section_header.dart';
 import 'package:data_nime/pages/anime_info.dart';
+import 'package:data_nime/domain/entities/anime_preview.dart';
+import 'package:data_nime/domain/entities/character_preview.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,8 +20,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Anime> allAnimes = [];
-  final List<AnimePreview> currentAnimes = [];
+  late List<AnimePreview> _topAnimes = [];
+  late List<AnimePreview> _randomAnimes = [];
+  late List<CharacterPreview> _topCharacters = [];
 
   @override
   void initState() {
@@ -27,72 +31,113 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _loadAnimes() async {
-    // final animes = await DatabaseHelper.instance.getAllAnimes();
-    final animes = await jikanGetAnimePreviews(1);
+    _topAnimes = await jikanGetTopAnimePreviews(1);
+    _topCharacters = await jikanGetTopCharacters(1);
+    jikanGetRandomAnimes(10).then((randomAnimes) {
+      _randomAnimes = randomAnimes;
+      setState(() {
+      });
+    });
 
     if (!mounted) return;
-
     setState(() {
-      // allAnimes.addAll(animes);
-      currentAnimes.addAll(animes);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          leading: Builder(
-            builder:
-                (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
-          ),
-          bottom: const TabBar(
-            tabs: [Tab(text: 'Mejores Animes'), Tab(text: 'Ruleta')],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: TabBarView(
-          children: [
-            GridView.builder(
-              padding: const EdgeInsets.all(8),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 4,
-                mainAxisSpacing: 4,
-                childAspectRatio: 0.6,
+        leading: Builder(
+          builder:
+              (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
-              itemCount: currentAnimes.length,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SectionHeader(
+              title: "Mejores Animes",
+              onSeeMorePressed: () {}
+            ),
+            HorizontalCardList(
+              itemCount: _topAnimes.length,
               itemBuilder: (context, index) {
                 return PreviewAnimeCard(
-                  imageUrl: currentAnimes[index].urlImage,
-                  gameName: currentAnimes[index].title,
-                  rating: currentAnimes[index].score,
+                  imageUrl: _topAnimes[index].urlImage,
+                  gameName: _topAnimes[index].title,
+                  rating: _topAnimes[index].score,
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                AnimeInfoPage(animeId: currentAnimes[index].id),
-                      ),
+                        builder: (context) => AnimeInfoPage(animeId: _topAnimes[index].id)
+                      )
                     );
-                  },
+                  }
                 );
-              },
+              }
             ),
-            SizedBox.shrink(),
+
+            SizedBox(height: 16),
+            SectionHeader(
+              title: "Mejores Personajes",
+              onSeeMorePressed: null
+            ),
+            HorizontalCardList(
+              itemCount: _topCharacters.length,
+              itemBuilder: (context, index) {
+                return PreviewCharacterCard(
+                  characterName: _topCharacters[index].name,
+                  imageUrl: _topCharacters[index].urlImage,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CharacterInfoPage(characterId: _topCharacters[index].id)
+                      )
+                    );
+                  }
+                );
+              }
+            ),
+
+            SizedBox(height: 16),
+            SectionHeader(
+              title: "Animes Random",
+              onSeeMorePressed: null
+            ),
+            HorizontalCardList(
+              itemCount: _randomAnimes.length,
+              itemBuilder: (context, index) {
+                return PreviewAnimeCard(
+                  imageUrl: _randomAnimes[index].urlImage,
+                  gameName: _randomAnimes[index].title,
+                  rating: _randomAnimes[index].score,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnimeInfoPage(animeId: _randomAnimes[index].id)
+                      )
+                    );
+                  }
+                );
+              }
+            ),
+            SizedBox(height: 32),
           ],
-        ),
-        drawer: const AppDrawer(),
+        )
       ),
+      drawer: const AppDrawer(),
     );
   }
 }

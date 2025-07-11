@@ -1,3 +1,5 @@
+import 'package:data_nime/pages/character_info.dart';
+import 'package:data_nime/widget/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/anime.dart';
@@ -51,7 +53,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
 
       return await translateAnime(anime);
     });
-    futureRecommendations = jikanGetRecommendationsPreview(widget.animeId);
+    futureRecommendations = jikanGetRecommendationsPreviewByAnime(widget.animeId);
   }
 
   void _swapCharacterPreviews(int index1, int index2) {
@@ -338,7 +340,6 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                               });
                             },
                             child: Card(
-                              color: Colors.blueGrey[800],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -368,13 +369,17 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          characterFull.name,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
+                                        SectionHeader(
+                                          title: characterFull.name,
+                                          onSeeMorePressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                  CharacterInfoPage(characterId: characterFull.id, characterFull: characterFull)
+                                              )
+                                            );
+                                          },
                                         ),
                                         const SizedBox(height: 12),
                                         Row(
@@ -401,7 +406,6 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                                 child: Text(
                                                   characterFull.about,
                                                   style: const TextStyle(
-                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
@@ -418,32 +422,19 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                               style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white,
                                               ),
                                             ),
                                             Text(
                                               "Japones: ${characterFull.voices["Japanese"] ?? "desconocido"}",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
                                             ),
                                             Text(
                                               "Ingles: ${characterFull.voices["English"] ?? "desconocido"}",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
                                             ),
                                             Text(
                                               "Español: ${characterFull.voices["Spanish"] ?? "desconocido"}",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
                                             ),
                                             Text(
                                               "Coreano: ${characterFull.voices["Korean"] ?? "desconocido"}",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
                                             ),
                                           ],
                                         ),

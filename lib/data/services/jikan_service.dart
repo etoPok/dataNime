@@ -198,19 +198,33 @@ Future<Character> jikanGetCharacterFullById(int id) async {
     voices[voice["language"]] = voice["person"]["name"];
   }
 
+  final List<String> nicknames = [];
+  for (var nickname in character["nicknames"]) {
+    nicknames.add(nickname);
+  }
+
+  final List<String> animes = [];
+  for (var anime in character["anime"]) {
+    animes.add(anime["anime"]["title"] ?? "");
+  }
+
   return Character(
     id: character["mal_id"],
     name: character["name"] ?? "",
+    kanjiName: character["name_kanji"] ?? "",
     about:
         character["about"] == null || (character["about"] as String).isEmpty
             ? "Sin descripción"
             : character["about"],
     urlImage: character["images"]["jpg"]["image_url"] ?? "",
+    favorites: character["favorites"],
+    nicknames: nicknames,
+    animes: animes,
     voices: voices,
   );
 }
 
-Future<List<AnimePreview>> jikanGetRecommendationsPreview(int animeId) async {
+Future<List<AnimePreview>> jikanGetRecommendationsPreviewByAnime(int animeId) async {
   final response = await http.get(
     Uri.parse('https://api.jikan.moe/v4/anime/$animeId/recommendations'),
   );
@@ -230,5 +244,97 @@ Future<List<AnimePreview>> jikanGetRecommendationsPreview(int animeId) async {
       urlImage: entry['images']['jpg']['large_image_url'],
       title: entry['title'],
     );
+  }).toList();
+}
+
+Future<List<AnimePreview>> jikanGetTopAnimePreviews(int page) async {
+  final response = await http.get(
+    Uri.parse('https://api.jikan.moe/v4/top/anime?page=$page'),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception("Error al obtener topAnimes");
+  }
+
+  final data = jsonDecode(response.body);
+  final List<dynamic> topAnimes = data['data'];
+
+  return topAnimes.map<AnimePreview>((anime) {
+    return AnimePreview(
+      id: (anime["mal_id"] as int),
+      score: (anime["score"] as double),
+      urlImage: (anime["images"]["jpg"]["large_image_url"] as String),
+      title: (anime["title"] as String)
+    );
+  }).toList();
+}
+
+Future<List<AnimePreview>> jikanGetRandomAnimes(int max) async {
+  List<Map<String, dynamic>> datas = [];
+  for (int i=0; i < max; i++) {
+    final response = await http.get(
+      Uri.parse('https://api.jikan.moe/v4/random/anime'),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Error al obtener randomAnimes");
+    }
+
+    final json = jsonDecode(response.body);
+    datas.add(json["data"]);
+  }
+
+  final List<AnimePreview> randomAnimes = [];
+  for (var anime in datas) {
+    if (max <= 0) break;
+    max--;
+    randomAnimes.add(
+      AnimePreview(
+        id: (anime["mal_id"] as int),
+        score: (anime["score"] as num?)?.toDouble() ?? 0.0,
+        urlImage: (anime["images"]["jpg"]["image_url"] as String),
+        title: (anime["title"] as String)
+      )
+    );
+  }
+
+  return randomAnimes;
+}
+
+Future<List<CharacterPreview>> jikanGetTopCharacters(int page) async {
+  final response = await http.get(
+    Uri.parse('https://api.jikan.moe/v4/top/characters?page=$page'),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception("Error al obtener topCharacters");
+  }
+
+  final data = jsonDecode(response.body);
+  final List<dynamic> topCharacters = data['data'];
+
+  return topCharacters.map<CharacterPreview>((character) {
+    return CharacterPreview(
+      id: character["mal_id"],
+      urlImage: character["images"]["jpg"]["image_url"] ?? "",
+      name: character["name"] ?? ""
+    );
+  }).toList();
+}
+
+Future<List<String>> jikanGetCharacterImageUrls(int id) async {
+  final response = await http.get(
+    Uri.parse('https://api.jikan.moe/v4/characters/$id/pictures'),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception("Error al obtener topCharacters");
+  }
+
+  final data = jsonDecode(response.body);
+  final List<dynamic> images = data['data'];
+
+  return images.map<String>((image) {
+    return image["jpg"]["image_url"] ?? "";
   }).toList();
 }
