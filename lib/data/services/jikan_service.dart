@@ -98,7 +98,7 @@ Future<List<AnimePreview>> jikanGetAnimePreviews(int page) async {
     animesPreviews.add(
       AnimePreview(
         id: (anime["mal_id"] as int),
-        score: (anime["score"] as double),
+        score: (anime["score"] as num?)?.toDouble() ?? 0.0,
         urlImage: (anime["images"]["jpg"]["large_image_url"] as String),
         title: (anime["title_english"] ?? anime["title"]) as String,
       ),
@@ -224,7 +224,9 @@ Future<Character> jikanGetCharacterFullById(int id) async {
   );
 }
 
-Future<List<AnimePreview>> jikanGetRecommendationsPreviewByAnime(int animeId) async {
+Future<List<AnimePreview>> jikanGetRecommendationsPreviewByAnime(
+  int animeId,
+) async {
   final response = await http.get(
     Uri.parse('https://api.jikan.moe/v4/anime/$animeId/recommendations'),
   );
@@ -262,16 +264,16 @@ Future<List<AnimePreview>> jikanGetTopAnimePreviews(int page) async {
   return topAnimes.map<AnimePreview>((anime) {
     return AnimePreview(
       id: (anime["mal_id"] as int),
-      score: (anime["score"] as double),
+      score: (anime["score"] as num?)?.toDouble() ?? 0.0,
       urlImage: (anime["images"]["jpg"]["large_image_url"] as String),
-      title: (anime["title"] as String)
+      title: (anime["title"] as String),
     );
   }).toList();
 }
 
 Future<List<AnimePreview>> jikanGetRandomAnimes(int max) async {
   List<Map<String, dynamic>> datas = [];
-  for (int i=0; i < max; i++) {
+  for (int i = 0; i < max; i++) {
     final response = await http.get(
       Uri.parse('https://api.jikan.moe/v4/random/anime'),
     );
@@ -293,8 +295,8 @@ Future<List<AnimePreview>> jikanGetRandomAnimes(int max) async {
         id: (anime["mal_id"] as int),
         score: (anime["score"] as num?)?.toDouble() ?? 0.0,
         urlImage: (anime["images"]["jpg"]["image_url"] as String),
-        title: (anime["title"] as String)
-      )
+        title: (anime["title"] as String),
+      ),
     );
   }
 
@@ -317,7 +319,7 @@ Future<List<CharacterPreview>> jikanGetTopCharacters(int page) async {
     return CharacterPreview(
       id: character["mal_id"],
       urlImage: character["images"]["jpg"]["image_url"] ?? "",
-      name: character["name"] ?? ""
+      name: character["name"] ?? "",
     );
   }).toList();
 }

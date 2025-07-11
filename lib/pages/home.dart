@@ -1,3 +1,4 @@
+import 'package:data_nime/pages/animes.dart';
 import 'package:data_nime/pages/character_info.dart';
 import 'package:data_nime/widget/card_preview_character.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _topCharacters = await jikanGetTopCharacters(1);
     jikanGetRandomAnimes(10).then((randomAnimes) {
       _randomAnimes = randomAnimes;
-      setState(() {
-      });
+      setState(() {});
     });
 
     if (!mounted) return;
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -66,7 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             SectionHeader(
               title: "Mejores Animes",
-              onSeeMorePressed: () {}
+              onSeeMorePressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AnimePage()),
+                );
+              },
             ),
             HorizontalCardList(
               itemCount: _topAnimes.length,
@@ -79,19 +83,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnimeInfoPage(animeId: _topAnimes[index].id)
-                      )
+                        builder:
+                            (context) =>
+                                AnimeInfoPage(animeId: _topAnimes[index].id),
+                      ),
                     );
-                  }
+                  },
                 );
-              }
+              },
             ),
 
             SizedBox(height: 16),
-            SectionHeader(
-              title: "Mejores Personajes",
-              onSeeMorePressed: null
-            ),
+            SectionHeader(title: "Mejores Personajes", onSeeMorePressed: null),
             HorizontalCardList(
               itemCount: _topCharacters.length,
               itemBuilder: (context, index) {
@@ -102,19 +105,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CharacterInfoPage(characterId: _topCharacters[index].id)
-                      )
+                        builder:
+                            (context) => CharacterInfoPage(
+                              characterId: _topCharacters[index].id,
+                            ),
+                      ),
                     );
-                  }
+                  },
                 );
-              }
+              },
             ),
 
             SizedBox(height: 16),
-            SectionHeader(
-              title: "Animes Random",
-              onSeeMorePressed: null
-            ),
+            SectionHeader(title: "Animes Random", onSeeMorePressed: null),
             HorizontalCardList(
               itemCount: _randomAnimes.length,
               itemBuilder: (context, index) {
@@ -126,16 +129,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AnimeInfoPage(animeId: _randomAnimes[index].id)
-                      )
+                        builder:
+                            (context) =>
+                                AnimeInfoPage(animeId: _randomAnimes[index].id),
+                      ),
                     );
-                  }
+                  },
                 );
-              }
+              },
             ),
             SizedBox(height: 32),
           ],
-        )
+        ),
       ),
       drawer: const AppDrawer(),
     );
