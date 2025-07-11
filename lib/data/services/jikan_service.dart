@@ -168,11 +168,13 @@ Future<List<CharacterPreview>> jikanGetCharacterPreviewsById(int id) async {
   final List<CharacterPreview> characterPreviews = [];
 
   for (var character in characters) {
-    characterPreviews.add(CharacterPreview(
-      id: character["character"]["mal_id"],
-      urlImage: character["character"]["images"]["jpg"]["image_url"] ?? "",
-      name: character["character"]["name"] ?? ""
-    ));
+    characterPreviews.add(
+      CharacterPreview(
+        id: character["character"]["mal_id"],
+        urlImage: character["character"]["images"]["jpg"]["image_url"] ?? "",
+        name: character["character"]["name"] ?? "",
+      ),
+    );
   }
 
   return characterPreviews;
@@ -199,9 +201,34 @@ Future<Character> jikanGetCharacterFullById(int id) async {
   return Character(
     id: character["mal_id"],
     name: character["name"] ?? "",
-    about: character["about"] == null || (character["about"] as String).isEmpty
-      ? "Sin descripción" : character["about"],
+    about:
+        character["about"] == null || (character["about"] as String).isEmpty
+            ? "Sin descripción"
+            : character["about"],
     urlImage: character["images"]["jpg"]["image_url"] ?? "",
-    voices: voices
+    voices: voices,
   );
+}
+
+Future<List<AnimePreview>> jikanGetRecommendationsPreview(int animeId) async {
+  final response = await http.get(
+    Uri.parse('https://api.jikan.moe/v4/anime/$animeId/recommendations'),
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception("Error al obtener recomendaciones");
+  }
+
+  final data = jsonDecode(response.body);
+  final List<dynamic> recommendations = data['data'];
+
+  return recommendations.take(10).map<AnimePreview>((item) {
+    final entry = item['entry'];
+    return AnimePreview(
+      id: entry['mal_id'],
+      score: 0.0, // no se carga el score aún para evitar bloqueos
+      urlImage: entry['images']['jpg']['large_image_url'],
+      title: entry['title'],
+    );
+  }).toList();
 }
