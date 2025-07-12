@@ -157,6 +157,4 @@ Future<List<AnimePreview>> jikanGetTopAnimePreviews(int page) async {
 
 La API Jikan es adecuada para proporcionar la información de anime necesaria para la app dataNime, y permite funcionalidades como búsqueda, filtrado y acceso a datos detallados.
 
----
 
-**Fin de documento**

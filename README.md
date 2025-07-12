@@ -54,6 +54,10 @@ La colección de pruebas puede encontrarse aquí:
 
 - [https://docs.api.jikan.moe/](https://docs.api.jikan.moe/)
 
+### Más detalles
+
+- [`APITEST`](APITEST.md)
+
 ## Estructura del Proyecto
 
 El proyecto está organizado en capas siguiendo una arquitectura limpia y modular. A continuación, se describe el propósito de cada carpeta:

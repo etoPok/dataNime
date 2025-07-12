@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
-import 'package:data_nime/pages/feedback.dart';
 
 class AboutPage extends StatefulWidget {
   static const routeName = '/about';
@@ -24,30 +23,20 @@ class _AboutPageState extends State<AboutPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Desarrollador: José Peña',
+                'Estudio: NekoCode Studio',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              const Text('Contacto: josetpffpt@gmail.com'),
+              const Text(
+                'Contacto: josetpffpt@gmail.com, toskareymun@gmail.com',
+              ),
               const SizedBox(height: 16),
               const Text(
                 'Descripción',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               const Text(
-                'Game Gauge es una aplicación intuitiva que te permite explorar, buscar y organizar tu colección de videojuegos, marcándolos como favoritos, jugados o pendientes. Con integración a la API de RAWG, ofrece información actualizada, calificaciones y descripciones de cada juego, además de búsqueda por voz para facilitar la experiencia.',
-              ),
-              const Spacer(),
-              Center(
-                child: ElevatedButton(
-                  child: const Text('Valorar'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const FeedbackPage()),
-                    );
-                  },
-                ),
+                'DataNime es una aplicación intuitiva que le permite explorar, buscar y organizar su colección de animes, marcándolos como favoritos, vistos o pendientes. Con integración a la API de Jikan, ofrece información actualizada, calificaciones, personajes y descripciones de cada anime.',
               ),
             ],
           ),

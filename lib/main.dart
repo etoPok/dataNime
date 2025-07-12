@@ -7,7 +7,6 @@ import 'package:data_nime/pages/anime_search.dart';
 import 'package:data_nime/pages/library.dart';
 import 'package:data_nime/pages/home.dart';
 import 'package:data_nime/pages/about.dart';
-import 'package:data_nime/pages/feedback.dart';
 import 'package:data_nime/pages/preferences.dart';
 import 'package:data_nime/data/models/preferences_model.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +57,6 @@ class MyApp extends StatelessWidget {
         AnimeSearchPage.routeName: (context) => AnimeSearchPage(),
         LibraryPage.routeName: (context) => const LibraryPage(),
         AboutPage.routeName: (context) => const AboutPage(),
-        FeedbackPage.routeName: (context) => const FeedbackPage(),
         PreferencesPage.routeName: (context) => PreferencesPage(),
       },
       navigatorObservers: [routeObserver],
