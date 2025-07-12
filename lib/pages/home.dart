@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _loadAnimes() async {
     _topAnimes = await jikanGetTopAnimePreviews(1);
     _topCharacters = await jikanGetTopCharacters(1);
-    jikanGetRandomAnimes(10).then((randomAnimes) {
+    jikanGetRandomAnimesConcurrent(10).then((randomAnimes) {
       _randomAnimes = randomAnimes;
       setState(() {});
     });

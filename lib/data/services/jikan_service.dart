@@ -304,6 +304,54 @@ Future<List<AnimePreview>> jikanGetRandomAnimes(int max) async {
   return randomAnimes;
 }
 
+Future<List<AnimePreview>> jikanGetRandomAnimesConcurrent(int count) async {
+  List<Future<Map<String, dynamic>?>> futures = [];
+  Set<int> fetchedIds = {};
+
+  Future<Map<String, dynamic>?> getSingleRandomAnime() async {
+    try {
+      final response = await http.get(Uri.parse('https://api.jikan.moe/v4/random/anime'));
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+        return data['data'];
+      } else {
+        print('Error al obtener anime: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Excepcion al obtener anime: $e');
+      return null;
+    }
+  }
+
+  for (int i = 0; i < count; i++) {
+    futures.add(getSingleRandomAnime());
+  }
+
+  List<Map<String, dynamic>?> results = await Future.wait(futures);
+
+  List<AnimePreview> randomAnimes = [];
+  for (var anime in results) {
+    if (anime == null
+        || anime['mal_id'] == null
+        || fetchedIds.contains(anime['mal_id']))
+        {continue;}
+
+    randomAnimes.add(
+      AnimePreview(
+        id: anime["mal_id"],
+        score: (anime["score"] as num?)?.toDouble() ?? 0.0,
+        urlImage: (anime["images"]["jpg"]["image_url"] as String),
+        title: (anime["title"] as String)
+      )
+    );
+    fetchedIds.add(anime['mal_id']);
+  }
+
+  return randomAnimes;
+}
+
 Future<List<CharacterPreview>> jikanGetTopCharacters(int page) async {
   final response = await http.get(
     Uri.parse('https://api.jikan.moe/v4/top/characters?page=$page'),
