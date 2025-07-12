@@ -14,6 +14,7 @@ import 'package:data_nime/widget/card_preview_anime.dart';
 import 'package:data_nime/widget/app_drawer.dart';
 import 'package:data_nime/data/services/watchmode_service.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:data_nime/data/services/database_helper.dart';
 
 class AnimeInfoPage extends StatefulWidget {
   final int animeId;
@@ -35,6 +36,10 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
   int _visibleCharacterCount = 20;
   List<StreamingPlatform> streamingPlatforms = [];
 
+  late IconData _iconFavorite;
+  late IconData _iconPending;
+  late IconData _iconWatched;
+
   @override
   void initState() {
     super.initState();
@@ -51,9 +56,19 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
         );
       }
 
+      _iconFavorite = await DatabaseHelper.instance.getFavoriteAnime(widget.animeId) != null
+        ? Icons.favorite : Icons.favorite_outline;
+
+      _iconPending = await DatabaseHelper.instance.getPendingAnime(widget.animeId) != null
+        ? Icons.watch_later : Icons.watch_later_outlined;
+
+      _iconWatched = await DatabaseHelper.instance.getWatchedAnime(widget.animeId) != null
+        ? Icons.check_box : Icons.check_box_outlined;
+
       return await translateAnime(anime);
     });
     futureRecommendations = jikanGetRecommendationsPreviewByAnime(widget.animeId);
+
   }
 
   void _swapCharacterPreviews(int index1, int index2) {
@@ -96,21 +111,95 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: OutlinedButton.icon(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.arrow_back),
-                      label: const Text("Volver"),
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: OutlinedButton.icon(
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: const Icon(Icons.arrow_back),
+                        label: const Text("Volver"),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          final animePreview = await DatabaseHelper.instance.getFavoriteAnime(anime.id);
+                          if (animePreview == null) {
+                            await DatabaseHelper.instance.insertFavoriteAnime(anime: anime);
+                            _iconFavorite = Icons.favorite;
+                          } else {
+                            await DatabaseHelper.instance.deleteFavoriteAnime(anime.id);
+                            _iconFavorite = Icons.favorite_outline;
+                          }
+                          setState(() {
+                          });
+                        },
+                        label: Icon(_iconFavorite),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          final animePreview = await DatabaseHelper.instance.getWatchedAnime(anime.id);
+                          if (animePreview == null) {
+                            await DatabaseHelper.instance.insertWatchedAnime(anime: anime);
+                            _iconWatched = Icons.check_box;
+                          } else {
+                            await DatabaseHelper.instance.deleteWatchedAnime(anime.id);
+                            _iconWatched = Icons.check_box_outlined;
+                          }
+                          setState(() {
+                          });
+                        },
+                        label: Icon(_iconWatched),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          final animePreview = await DatabaseHelper.instance.getPendingAnime(anime.id);
+                          if (animePreview == null) {
+                            await DatabaseHelper.instance.insertPendingAnime(anime: anime);
+                            _iconPending = Icons.watch_later;
+                          } else {
+                            await DatabaseHelper.instance.deletePendingAnime(anime.id);
+                            _iconPending = Icons.watch_later_outlined;
+                          }
+                          setState(() {
+                          });
+                        },
+                        label: Icon(_iconPending),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,6 +238,8 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
+
+
 
                 if (anime.urlTrailer.isNotEmpty)
                   Column(
@@ -281,7 +372,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                 margin: const EdgeInsets.only(right: 12.0),
                                 child: PreviewAnimeCard(
                                   imageUrl: anime.urlImage,
-                                  gameName: anime.title,
+                                  title: anime.title,
                                   rating:
                                       anime
                                           .score, // es 0.0 por ahora, evitar saturar

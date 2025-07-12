@@ -1,3 +1,4 @@
+import 'package:data_nime/data/services/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/pages/home.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!mounted) return;
 
     if (hasConnection) {
+      await DatabaseHelper.instance.database;
       await Future.delayed(const Duration(seconds: 1));
       if (!mounted) return;
       Navigator.pushReplacement(

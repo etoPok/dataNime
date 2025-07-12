@@ -1,5 +1,6 @@
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/anime_preview.dart';
+import 'package:data_nime/pages/anime_info.dart';
 import 'package:data_nime/widget/card_preview_anime.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class AnimePage extends StatefulWidget {
 class _AnimePageState extends State<AnimePage> {
   int _currentPage = 1;
   List<AnimePreview> animes = [];
-  bool haciendoSolicitud = false;
+  bool requestInProgress = false;
 
   @override
   void initState() {
@@ -29,13 +30,9 @@ class _AnimePageState extends State<AnimePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Animes")),
-      body:
-      // children: <Widget>[
-      // SizedBox(
-      // height: 600,
-      GridView.builder(
+      body: !requestInProgress ? GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
+          crossAxisCount: 3,
           crossAxisSpacing: 4,
           mainAxisSpacing: 4,
           childAspectRatio: 0.6,
@@ -44,14 +41,21 @@ class _AnimePageState extends State<AnimePage> {
         itemBuilder: (context, index) {
           return PreviewAnimeCard(
             imageUrl: animes[index].urlImage,
-            gameName: animes[index].title,
+            title: animes[index].title,
             rating: animes[index].score,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) =>
+                          AnimeInfoPage(animeId: animes[index].id),
+                ),
+              );
+            },
           );
         },
-      ),
-      // ),
-      // ],
-      // ),
+      ) : Center(child: CircularProgressIndicator()),
       persistentFooterButtons: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -59,14 +63,14 @@ class _AnimePageState extends State<AnimePage> {
             IconButton(
               icon: Icon(Icons.arrow_back_ios_new),
               onPressed: () async {
-                if (haciendoSolicitud || _currentPage <= 1) return;
+                if (requestInProgress || _currentPage <= 1) return;
                 setState(() {
                   _currentPage--;
-                  haciendoSolicitud = true;
+                  requestInProgress = true;
                 });
                 animes = await jikanGetAnimePreviews(_currentPage);
                 setState(() {
-                  haciendoSolicitud = false;
+                  requestInProgress = false;
                 });
               },
             ),
@@ -74,14 +78,14 @@ class _AnimePageState extends State<AnimePage> {
             IconButton(
               icon: Icon(Icons.arrow_forward_ios),
               onPressed: () async {
-                if (haciendoSolicitud) return;
+                if (requestInProgress) return;
                 setState(() {
                   _currentPage++;
-                  haciendoSolicitud = true;
+                  requestInProgress = true;
                 });
                 animes = await jikanGetAnimePreviews(_currentPage);
                 setState(() {
-                  haciendoSolicitud = false;
+                  requestInProgress = false;
                 });
               },
             ),

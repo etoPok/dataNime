@@ -31,7 +31,7 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Información del Anime",
+          "Información del Personaje",
           style: TextStyle(fontSize: 20),
         ),
       ),

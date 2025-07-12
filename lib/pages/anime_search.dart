@@ -304,7 +304,7 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                           final anime = _searchResults[index];
                           return PreviewAnimeCard(
                             imageUrl: anime.urlImage,
-                            gameName: anime.title,
+                            title: anime.title,
                             rating: anime.score,
                             onTap: () {
                               Navigator.push(

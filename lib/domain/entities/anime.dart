@@ -13,6 +13,7 @@ class Anime {
   final int _episodes;
   final String _status;
   final String _aired;
+  final double _score;
 
   final List<String> _genres;
   final List<String> _explicitGenres;
@@ -32,6 +33,7 @@ class Anime {
     required int episodes,
     required String status,
     required String aired,
+    required double score,
     required List<String> genres,
     List<String> explicitGenres = const [],
     required String urlImage,
@@ -47,6 +49,7 @@ class Anime {
        _episodes = episodes,
        _status = status,
        _aired = aired,
+       _score = score,
        _genres = genres,
        _explicitGenres = explicitGenres,
        _urlImage = urlImage,
@@ -96,6 +99,10 @@ class Anime {
     return _aired;
   }
 
+  double get score {
+    return _score;
+  }
+
   List<String> get genres {
     return _genres;
   }
@@ -124,6 +131,7 @@ class Anime {
       "episodes": _episodes,
       "status": _status,
       "aired": _aired,
+      "score": _score,
       "genres": _genres.join(","),
       "explicitGenres": _explicitGenres.join(","),
       "urlImage": _urlImage,
@@ -144,6 +152,7 @@ class Anime {
       episodes: map["episodes"],
       status: map["status"],
       aired: map["aired"],
+      score: map["score"],
       genres: (map["genres"] as String).split(","),
       explicitGenres: (map["explicitGenres"] as String).split(","),
       urlImage: map["urlImage"],
@@ -163,6 +172,7 @@ class Anime {
     int? episodes,
     String? status,
     String? aired,
+    double? score,
     List<String>? genres,
     List<String>? explicitGenres,
     String? urlImage,
@@ -180,6 +190,7 @@ class Anime {
       episodes: episodes ?? _episodes,
       status: status ?? _status,
       aired: aired ?? _aired,
+      score: score ?? _score,
       genres: genres ?? _genres,
       explicitGenres: explicitGenres ?? _explicitGenres,
       urlImage: urlImage ?? _urlImage,

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:data_nime/domain/entities/anime.dart';
 import 'package:data_nime/domain/entities/anime_preview.dart';
-import 'package:data_nime/data/services/database_helper.dart';
 import 'package:data_nime/domain/entities/character_preview.dart';
 import 'package:data_nime/domain/entities/character.dart';
 
@@ -42,43 +41,43 @@ Future<List<dynamic>> jikanGetAllAnimes() async {
   return allAnimes;
 }
 
-Future<void> jikanImportAnimes() async {
-  List<dynamic> allAnimes = await jikanGetAllAnimes();
-  DatabaseHelper db = DatabaseHelper.instance;
+// Future<void> jikanImportAnimes() async {
+//   List<dynamic> allAnimes = await jikanGetAllAnimes();
+//   DatabaseHelper db = DatabaseHelper.instance;
 
-  void actionInsertAnime(dynamic anime) async {
-    await db.insertAnime(
-      Anime(
-        title: anime["title"] ?? "",
-        titleEnglish: anime["title_english"] ?? "",
-        titleJapanese: anime["title_japanese"] ?? "",
-        titleSpanish:
-            (anime["titles"] as List).firstWhere((title) {
-              return title["type"] == "Spanish";
-            }, orElse: () => {"title": ""})["title"] ??
-            "",
-        synopsis: anime["synopsis"] ?? "",
-        type: anime["type"] ?? "",
-        source: anime["source"] ?? "",
-        episodes: anime["episodes"] ?? 0,
-        status: anime["status"] ?? "",
-        aired: anime["aired"]["string"] ?? "",
-        genres:
-            (anime["genres"] as List).map((genre) {
-              return genre["name"] as String;
-            }).toList(),
-        explicitGenres:
-            (anime["explicit_genres"] as List).map<String>((genre) {
-              return genre["name"] as String;
-            }).toList(),
-        urlImage: anime["images"]["jpg"]["large_image_url"] ?? "",
-        urlTrailer: anime["trailer"]["youtube_id"]?.toString() ?? "",
-      ),
-    );
-  }
+//   void actionInsertAnime(dynamic anime) async {
+//     await db.insertFavoriteAnime(
+//       Anime(
+//         title: anime["title"] ?? "",
+//         titleEnglish: anime["title_english"] ?? "",
+//         titleJapanese: anime["title_japanese"] ?? "",
+//         titleSpanish:
+//             (anime["titles"] as List).firstWhere((title) {
+//               return title["type"] == "Spanish";
+//             }, orElse: () => {"title": ""})["title"] ??
+//             "",
+//         synopsis: anime["synopsis"] ?? "",
+//         type: anime["type"] ?? "",
+//         source: anime["source"] ?? "",
+//         episodes: anime["episodes"] ?? 0,
+//         status: anime["status"] ?? "",
+//         aired: anime["aired"]["string"] ?? "",
+//         genres:
+//             (anime["genres"] as List).map((genre) {
+//               return genre["name"] as String;
+//             }).toList(),
+//         explicitGenres:
+//             (anime["explicit_genres"] as List).map<String>((genre) {
+//               return genre["name"] as String;
+//             }).toList(),
+//         urlImage: anime["images"]["jpg"]["large_image_url"] ?? "",
+//         urlTrailer: anime["trailer"]["youtube_id"]?.toString() ?? "",
+//       ),
+//     );
+//   }
 
-  allAnimes.forEach(actionInsertAnime);
-}
+//   allAnimes.forEach(actionInsertAnime);
+// }
 
 Future<List<AnimePreview>> jikanGetAnimePreviews(int page) async {
   List<AnimePreview> animesPreviews = [];
@@ -124,6 +123,7 @@ Future<Anime> jikanGetAnimeById(int id) async {
   final anime = json["data"];
 
   return Anime(
+    id: anime["mal_id"],
     title: anime["title"] ?? "",
     titleEnglish: anime["title_english"] ?? "",
     titleJapanese: anime["title_japanese"] ?? "",
@@ -139,6 +139,7 @@ Future<Anime> jikanGetAnimeById(int id) async {
     episodes: anime["episodes"] ?? 0,
     status: anime["status"] ?? "",
     aired: anime["aired"]["string"] ?? "",
+    score: (anime["score"] as num?)?.toDouble() ?? 0.0,
     genres:
         (anime["genres"] as List)
             .map((genre) => genre["name"] as String)

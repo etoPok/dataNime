@@ -18,4 +18,17 @@ class AnimePreview {
   double get score => _score;
   String get urlImage => _urlImage;
   String get title => _title;
+
+  Map<String, dynamic> toMap() {
+    return { "id": _id, "title": _title, "score": _score, "urlImage": urlImage };
+  }
+
+  factory AnimePreview.fromMap(Map<String, dynamic> map) {
+    return AnimePreview(
+      id: map["id"],
+      score: (map["score"] as num?)?.toDouble() ?? 0.0,
+      urlImage: map["urlImage"] ?? "",
+      title: map["title"] ?? ""
+    );
+  }
 }

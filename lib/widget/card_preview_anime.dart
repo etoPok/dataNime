@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class PreviewAnimeCard extends StatelessWidget {
   final String imageUrl;
-  final String gameName;
+  final String title;
   final double rating;
   final VoidCallback? onTap;
 
   const PreviewAnimeCard({
     super.key,
     required this.imageUrl,
-    required this.gameName,
+    required this.title,
     required this.rating,
     this.onTap,
   });
@@ -84,7 +84,7 @@ class PreviewAnimeCard extends StatelessWidget {
                 vertical: 6.0,
               ),
               child: Text(
-                gameName,
+                title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(

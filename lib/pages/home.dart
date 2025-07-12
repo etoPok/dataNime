@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 return PreviewAnimeCard(
                   imageUrl: _topAnimes[index].urlImage,
-                  gameName: _topAnimes[index].title,
+                  title: _topAnimes[index].title,
                   rating: _topAnimes[index].score,
                   onTap: () {
                     Navigator.push(
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               itemBuilder: (context, index) {
                 return PreviewAnimeCard(
                   imageUrl: _randomAnimes[index].urlImage,
-                  gameName: _randomAnimes[index].title,
+                  title: _randomAnimes[index].title,
                   rating: _randomAnimes[index].score,
                   onTap: () {
                     Navigator.push(
