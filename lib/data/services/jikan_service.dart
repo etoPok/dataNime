@@ -353,7 +353,7 @@ Future<List<AnimePreview>> jikanGetRandomAnimesConcurrent(int count) async {
   return randomAnimes;
 }
 
-Future<List<CharacterPreview>> jikanGetTopCharacters(int page) async {
+Future<List<CharacterPreview>> jikanGetTopCharacterPreviews(int page) async {
   final response = await http.get(
     Uri.parse('https://api.jikan.moe/v4/top/characters?page=$page'),
   );

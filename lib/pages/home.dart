@@ -1,5 +1,6 @@
 import 'package:data_nime/pages/animes.dart';
 import 'package:data_nime/pages/character_info.dart';
+import 'package:data_nime/pages/characters.dart';
 import 'package:data_nime/widget/card_preview_character.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _loadAnimes() async {
     _topAnimes = await jikanGetTopAnimePreviews(1);
-    _topCharacters = await jikanGetTopCharacters(1);
+    _topCharacters = await jikanGetTopCharacterPreviews(1);
     jikanGetRandomAnimesConcurrent(10).then((randomAnimes) {
       _randomAnimes = randomAnimes;
       setState(() {});
@@ -94,7 +95,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             SizedBox(height: 16),
-            SectionHeader(title: "Mejores Personajes", onSeeMorePressed: null),
+            SectionHeader(
+              title: "Mejores Personajes",
+              onSeeMorePressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CharacterPage(),
+                  ),
+                );
+              }
+            ),
             HorizontalCardList(
               itemCount: _topCharacters.length,
               itemBuilder: (context, index) {
