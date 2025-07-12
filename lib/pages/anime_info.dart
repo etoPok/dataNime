@@ -423,8 +423,8 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _indexCharacter = null;
                                 _restoreCharacterPreviews();
+                                _indexCharacter = null;
                               });
                             },
                             child: Card(
