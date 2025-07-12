@@ -308,6 +308,7 @@ Future<List<AnimePreview>> jikanGetRandomAnimes(int max) async {
 Future<List<AnimePreview>> jikanGetRandomAnimesConcurrent(int count) async {
   List<Future<Map<String, dynamic>?>> futures = [];
   Set<int> fetchedIds = {};
+  Set<String> excludedGenres = {"Erotica", "Hentai", "Adult Cast", "Ecchi"};
 
   Future<Map<String, dynamic>?> getSingleRandomAnime() async {
     try {
@@ -336,7 +337,10 @@ Future<List<AnimePreview>> jikanGetRandomAnimesConcurrent(int count) async {
   for (var anime in results) {
     if (anime == null
         || anime['mal_id'] == null
-        || fetchedIds.contains(anime['mal_id']))
+        || fetchedIds.contains(anime['mal_id'])
+        || (anime["genres"] as List).firstWhere((genre) {
+          return genre["name"] != null && excludedGenres.contains(genre["name"]);
+        }, orElse: () => null) != null)
         {continue;}
 
     randomAnimes.add(
