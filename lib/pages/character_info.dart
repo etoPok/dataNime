@@ -1,5 +1,6 @@
 import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/character.dart';
+import 'package:data_nime/pages/anime_info.dart';
 import 'package:data_nime/utils/google_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
@@ -143,8 +144,24 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text(character.animeTitle.join(", ")),
-
+                Wrap(
+                  spacing: 8,
+                  children:
+                      character.animes.entries
+                          .map(
+                            (entry) => ActionChip(
+                              label: Text(entry.value),
+                              onPressed: () async {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AnimeInfoPage(animeId: entry.key),
+                                  ),
+                                );
+                              },
+                            ),
+                          ).toList(),
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   "Imágenes",

@@ -6,7 +6,7 @@ class Character {
   final String _about;
   final int _favorites;
   final List<String> _nicknames;
-  final List<String> _animes;
+  final Map<int, String> _animes;
   final Map<String, String> _voices; // key: language, value: person
 
   Character({
@@ -17,7 +17,7 @@ class Character {
     required String about,
     required int favorites,
     required List<String> nicknames,
-    required List<String> animes,
+    required Map<int, String> animes,
     required Map<String, String> voices
   }) : _id = id,
     _name = name,
@@ -36,7 +36,7 @@ class Character {
   String get about { return _about; }
   int get favorites { return _favorites; }
   List<String> get nicknames { return _nicknames; }
-  List<String> get animeTitle { return _animes; }
+  Map<int, String> get animes { return _animes; }
   Map<String, String> get voices { return _voices; }
 
   Character copyWith({
@@ -47,7 +47,7 @@ class Character {
     String? about,
     int? favoites,
     List<String>? nicknames,
-    List<String>? animeTitle,
+    Map<int, String>? animes,
     Map<String, String>? voices
   }) {
     return Character(
@@ -58,7 +58,7 @@ class Character {
       about: about ?? _about,
       favorites: favoites ?? _favorites,
       nicknames: nicknames ?? _nicknames,
-      animes: animeTitle ?? _animes,
+      animes: animes ?? _animes,
       voices: voices ?? _voices
     );
   }

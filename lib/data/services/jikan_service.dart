@@ -204,9 +204,10 @@ Future<Character> jikanGetCharacterFullById(int id) async {
     nicknames.add(nickname);
   }
 
-  final List<String> animes = [];
+  final Map<int, String> animes = {};
   for (var anime in character["anime"]) {
-    animes.add(anime["anime"]["title"] ?? "");
+    if (anime == null || anime["anime"]["mal_id"] == null) continue;
+    animes[anime["anime"]["mal_id"]] = anime["anime"]["title"] ?? "";
   }
 
   return Character(
