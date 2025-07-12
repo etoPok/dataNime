@@ -14,25 +14,29 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Text(
             title,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
-          if (onSeeMorePressed != null)
-            TextButton(
+        ),
+        if (onSeeMorePressed != null)
+          Padding(
+            padding: const EdgeInsets.only(left: 4.0),
+            child: TextButton(
               onPressed: onSeeMorePressed,
-              child: button
+              child: button,
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

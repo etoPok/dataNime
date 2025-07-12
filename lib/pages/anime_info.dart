@@ -31,8 +31,8 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
   String translatedSynopsis = "";
   late List<CharacterPreview> characterPreviews;
   final List<CharacterPreview?> _positionBackup = List.filled(3, null);
-  int? _expandCharacterIndex;
-  int _indexToExpand = 0;
+  int? _indexCharacter;
+  int _indexCard = 0;
   int _visibleCharacterCount = 20;
   List<StreamingPlatform> streamingPlatforms = [];
 
@@ -78,12 +78,9 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
   }
 
   void _restoreCharacterPreviews() {
-    for (
-      int i = 0;
-      _indexToExpand + i < characterPreviews.length && i < 3;
-      i++
-    ) {
-      characterPreviews[_indexToExpand + i] = _positionBackup[i]!;
+    if (_indexCharacter == null) return;
+    for (int i = 0; _indexCard + i < characterPreviews.length && i < 3; i++) {
+      characterPreviews[_indexCard + i] = _positionBackup[i]!;
     }
   }
 
@@ -410,9 +407,9 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                     (index) {
                       CharacterPreview character = characterPreviews[index];
 
-                      if (_expandCharacterIndex != null &&
-                          _indexToExpand == index) {
-                        character = characterPreviews[_indexToExpand];
+                      if (_indexCharacter != null &&
+                          _indexCard == index) {
+                        character = characterPreviews[_indexCard];
                         final Future<Character> futureCharacter =
                             jikanGetCharacterFullById(character.id).then((
                               value,
@@ -426,7 +423,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                _expandCharacterIndex = null;
+                                _indexCharacter = null;
                                 _restoreCharacterPreviews();
                               });
                             },
@@ -545,44 +542,43 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (_expandCharacterIndex != null) {
-                                _restoreCharacterPreviews();
-                              }
-                              _expandCharacterIndex = index;
-                              _indexToExpand = (index ~/ 3) * 3;
+                              bool selectedInActiveRow = _indexCharacter != null
+                                                        && index >= _indexCard && index < _indexCard+3;
 
-                              for (
-                                int i = 0;
-                                _indexToExpand + i < characterPreviews.length &&
-                                    i < 3;
-                                i++
-                              ) {
-                                _positionBackup[i] =
-                                    characterPreviews[_indexToExpand + i];
+                              // restaurar antes de modificar indices
+                              if (!selectedInActiveRow) _restoreCharacterPreviews();
+
+                              _indexCharacter = index;
+                              _indexCard = (index ~/ 3) * 3;
+
+                              if (!selectedInActiveRow) {
+                                for (int i = 0; _indexCard + i < characterPreviews.length && i < 3; i++) {
+                                  _positionBackup[i] = characterPreviews[_indexCard + i];
+                                }
                               }
 
-                              if (_expandCharacterIndex! % 3 == 0) return;
+                              if (_indexCharacter! % 3 == 0) return;
 
                               // [a] [b] [x] --> [x] [a] [b]
                               // [a] [x] [c] --> [x] [a] [c]
 
                               // comprobar si el presionado esta al final de la fila
-                              if ((_expandCharacterIndex! + 1) % 3 != 0) {
+                              if (!selectedInActiveRow && (_indexCharacter! + 1) % 3 != 0) {
                                 // personaje izquierdo del presionado se mueve al final de la fila
                                 _swapCharacterPreviews(
-                                  _expandCharacterIndex! - 1,
-                                  _expandCharacterIndex!,
+                                  _indexCharacter! - 1,
+                                  _indexCharacter!,
                                 );
                                 // personaje presionado pasa al inicio de la fila (_indexToExpand)
                                 _swapCharacterPreviews(
-                                  _expandCharacterIndex! - 1,
-                                  _indexToExpand,
+                                  _indexCharacter! - 1,
+                                  _indexCard,
                                 );
                               } else {
                                 // personaje presionado pasa al inicio de la fila (_indexToExpand)
                                 _swapCharacterPreviews(
-                                  _indexToExpand,
-                                  _expandCharacterIndex!,
+                                  _indexCard,
+                                  _indexCharacter!,
                                 );
                               }
                             });

@@ -65,14 +65,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SectionHeader(
-              title: "Mejores Animes",
-              onSeeMorePressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AnimePage()),
-                );
-              },
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SectionHeader(
+                title: "Mejores Animes",
+                onSeeMorePressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AnimePage()),
+                  );
+                },
+              ),
             ),
             HorizontalCardList(
               itemCount: _topAnimes.length,
@@ -96,16 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             SizedBox(height: 16),
-            SectionHeader(
-              title: "Mejores Personajes",
-              onSeeMorePressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CharacterPage(),
-                  ),
-                );
-              }
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SectionHeader(
+                title: "Mejores Personajes",
+                onSeeMorePressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CharacterPage()),
+                  );
+                },
+              ),
             ),
             HorizontalCardList(
               itemCount: _topCharacters.length,
@@ -129,19 +133,22 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             SizedBox(height: 16),
-            SectionHeader(
-              title: "Animes Random",
-              button: const Icon(Icons.refresh),
-              onSeeMorePressed: () async {
-                if (_waitingForRandomAnime) return;
-                setState(() {
-                  _waitingForRandomAnime = true;
-                });
-                _randomAnimes = await jikanGetRandomAnimesConcurrent(10);
-                setState(() {
-                  _waitingForRandomAnime = false;
-                });
-              }
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SectionHeader(
+                title: "Animes Random",
+                button: const Icon(Icons.refresh),
+                onSeeMorePressed: () async {
+                  if (_waitingForRandomAnime) return;
+                  setState(() {
+                    _waitingForRandomAnime = true;
+                  });
+                  _randomAnimes = await jikanGetRandomAnimesConcurrent(10);
+                  setState(() {
+                    _waitingForRandomAnime = false;
+                  });
+                }
+              ),
             ),
             if (_waitingForRandomAnime)
               Center(heightFactor: 7, child: CircularProgressIndicator())
