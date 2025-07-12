@@ -86,15 +86,15 @@ lib/
 - [x] Desarrollar un widget para mostrar los animes en forma de tarjeta.
 - [x] Crear una pantalla para visualizar la información de un anime.
 - [x] Diseñar el logo de la aplicación.
-- [ ] Implementar las preferencias del usuario.
+- [x] Implementar conexiones con plataformas de streaming para los animes.
 - [x] Implementar sección de busqueda de animes, con filtro de generos.
 
 ### Jostin Duval
 - [x] Implementar la lógica para ver los mejores animes mediante una pantalla de exploración.
 - [x] Crear una pantalla para visualizar la información de los personajes de un anime.
 - [x] Implementar la lógica de favoritos utilizando una base de datos local.
-- [ ] Agregar filtros por género, estado o año.
-- [ ] Crear una pantalla de "Acerca de la app" con créditos.
+- [x] Implementar previsualizacion de personajes dentro de la aplicacion.
+- [x] Crear una pantalla de "Acerca de la app" con créditos.
 
 ## Funcionalidades principales
 
@@ -107,3 +107,9 @@ lib/
 - **Recomendaciones basadas en animes**
 - **Soporte para modo oscuro**
 - **Interacción con apps externas**
+
+## Descargar la app
+
+Puedes probar la aplicación descargando el APK:
+
+[ Descargar APK (v1.0.0)](https://github.com/etoPok/dataNime/releases/download/v1.0/dataNime.apk)
