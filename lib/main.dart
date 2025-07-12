@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:data_nime/pages/splash.dart';
 import 'package:data_nime/theme/theme.dart';
 import 'package:data_nime/theme/util.dart';
-import 'package:data_nime/pages/profile.dart';
 import 'package:data_nime/pages/anime_search.dart';
 import 'package:data_nime/pages/library.dart';
 import 'package:data_nime/pages/home.dart';
@@ -53,7 +52,6 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(title: 'Carga'),
         MyHomePage.routeName: (context) => const MyHomePage(title: 'Inicio'),
-        ProfilePage.routeName: (context) => const ProfilePage(title: 'Perfil'),
         AnimeSearchPage.routeName: (context) => AnimeSearchPage(),
         LibraryPage.routeName: (context) => const LibraryPage(),
         AboutPage.routeName: (context) => const AboutPage(),

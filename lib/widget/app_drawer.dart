@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:data_nime/pages/home.dart';
 import 'package:data_nime/pages/preferences.dart';
-import 'package:data_nime/pages/profile.dart';
 import 'package:data_nime/pages/anime_search.dart';
 import 'package:data_nime/pages/library.dart';
 import 'package:data_nime/pages/about.dart';
@@ -38,18 +37,6 @@ class AppDrawer extends StatelessWidget {
               if (currentRoute != MyHomePage.routeName) {
                 Navigator.pop(context);
                 Navigator.of(context).pushNamed(MyHomePage.routeName);
-              } else {
-                Navigator.pop(context);
-              }
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.account_circle_sharp),
-            title: const Text('Perfil'),
-            onTap: () {
-              if (currentRoute != ProfilePage.routeName) {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed(ProfilePage.routeName);
               } else {
                 Navigator.pop(context);
               }
