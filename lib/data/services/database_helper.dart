@@ -19,8 +19,6 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, fileName);
 
-    deleteDatabase(path);
-
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
