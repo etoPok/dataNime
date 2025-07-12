@@ -25,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<AnimePreview> _topAnimes = [];
   late List<AnimePreview> _randomAnimes = [];
   late List<CharacterPreview> _topCharacters = [];
+  bool _waitingForRandomAnime = false;
 
   @override
   void initState() {
@@ -128,27 +129,43 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             SizedBox(height: 16),
-            SectionHeader(title: "Animes Random", onSeeMorePressed: null),
-            HorizontalCardList(
-              itemCount: _randomAnimes.length,
-              itemBuilder: (context, index) {
-                return PreviewAnimeCard(
-                  imageUrl: _randomAnimes[index].urlImage,
-                  title: _randomAnimes[index].title,
-                  rating: _randomAnimes[index].score,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                AnimeInfoPage(animeId: _randomAnimes[index].id),
-                      ),
-                    );
-                  },
-                );
-              },
+            SectionHeader(
+              title: "Animes Random",
+              button: const Icon(Icons.refresh),
+              onSeeMorePressed: () async {
+                if (_waitingForRandomAnime) return;
+                setState(() {
+                  _waitingForRandomAnime = true;
+                });
+                _randomAnimes = await jikanGetRandomAnimesConcurrent(10);
+                setState(() {
+                  _waitingForRandomAnime = false;
+                });
+              }
             ),
+            if (_waitingForRandomAnime)
+              Center(heightFactor: 7, child: CircularProgressIndicator())
+            else
+              HorizontalCardList(
+                itemCount: _randomAnimes.length,
+                itemBuilder: (context, index) {
+                  return PreviewAnimeCard(
+                    imageUrl: _randomAnimes[index].urlImage,
+                    title: _randomAnimes[index].title,
+                    rating: _randomAnimes[index].score,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  AnimeInfoPage(animeId: _randomAnimes[index].id),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             SizedBox(height: 32),
           ],
         ),

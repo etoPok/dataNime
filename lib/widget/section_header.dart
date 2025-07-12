@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class SectionHeader extends StatelessWidget {
   final String title;
   final VoidCallback? onSeeMorePressed;
+  final Widget button;
 
   const SectionHeader({
     super.key,
     required this.title,
+    this.button = const Text("Ver más >", style: TextStyle(fontSize: 16)),
     this.onSeeMorePressed,
   });
 
@@ -27,12 +29,7 @@ class SectionHeader extends StatelessWidget {
           if (onSeeMorePressed != null)
             TextButton(
               onPressed: onSeeMorePressed,
-              child: const Text(
-                'Ver más >',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
+              child: button
             ),
         ],
       ),
