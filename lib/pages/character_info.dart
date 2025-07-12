@@ -2,12 +2,17 @@ import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/character.dart';
 import 'package:data_nime/utils/google_translator.dart';
 import 'package:flutter/material.dart';
+import 'package:data_nime/widget/app_drawer.dart';
 
 class CharacterInfoPage extends StatefulWidget {
   final int characterId;
   final Character? characterFull;
 
-  const CharacterInfoPage({super.key, required this.characterId, this.characterFull});
+  const CharacterInfoPage({
+    super.key,
+    required this.characterId,
+    this.characterFull,
+  });
 
   @override
   State<CharacterInfoPage> createState() => _CharacterInfoPageState();
@@ -20,9 +25,11 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
   @override
   void initState() {
     super.initState();
-    _futureCharacter = jikanGetCharacterFullById(widget.characterId).then((character) async {
-        _characterImages = await jikanGetCharacterImageUrls(widget.characterId);
-        return await translateCharacter(character);
+    _futureCharacter = jikanGetCharacterFullById(widget.characterId).then((
+      character,
+    ) async {
+      _characterImages = await jikanGetCharacterImageUrls(widget.characterId);
+      return await translateCharacter(character);
     });
   }
 
@@ -50,6 +57,19 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: OutlinedButton.icon(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.arrow_back),
+                    label: const Text("Volver"),
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -96,7 +116,11 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text(character.nicknames.isEmpty ? "Sin nicknames" : character.nicknames.join(", ")),
+                Text(
+                  character.nicknames.isEmpty
+                      ? "Sin nicknames"
+                      : character.nicknames.join(", "),
+                ),
 
                 const SizedBox(height: 20),
                 const Text(
@@ -104,9 +128,13 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text("Japonés: ${character.voices["Japanese"] ?? "desconocido"}"),
+                Text(
+                  "Japonés: ${character.voices["Japanese"] ?? "desconocido"}",
+                ),
                 Text("Ingles: ${character.voices["English"] ?? "desconocido"}"),
-                Text("Español: ${character.voices["Spanish"] ?? "desconocido"}"),
+                Text(
+                  "Español: ${character.voices["Spanish"] ?? "desconocido"}",
+                ),
                 Text("Coreano: ${character.voices["Korean"] ?? "desconocido"}"),
 
                 const SizedBox(height: 20),
@@ -150,12 +178,14 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                       );
                     },
                   ),
-                )
-              ]
-            )
+                ),
+              ],
+            ),
           );
         },
       ),
+      //Drawer
+      drawer: const AppDrawer(),
     );
   }
 }

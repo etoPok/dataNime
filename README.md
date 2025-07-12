@@ -1,7 +1,7 @@
 
-# Datanime
+# dataNime
 
-**Datanime** es una aplicación móvil desarrollada en Flutter que permite a los usuarios explorar información de animes, consultar detalles como personajes, y organizar su progreso mediante listas de favoritos, vistos y pendientes. Utiliza la API Jikan (basada en MyAnimeList) para obtener datos actualizados de manera eficiente. Esta aplicación busca ofrecer una experiencia fluida y centralizada para los fanáticos del anime que desean llevar un control personalizado de lo que ven.
+**dataNime** es una aplicación móvil desarrollada en Flutter que permite a los usuarios explorar información de animes, consultar detalles como personajes, y organizar su progreso mediante listas de favoritos, vistos y pendientes. Utiliza la API Jikan (basada en MyAnimeList) para obtener datos actualizados de manera eficiente. Esta aplicación busca ofrecer una experiencia fluida y centralizada para los fanáticos del anime que desean llevar un control personalizado de lo que ven.
 
 ## Indice
 
@@ -10,6 +10,10 @@
 - [API Utilizada - Jikan](#api-utilizada---jikan)
 
 - [Estructura del Proyecto](#estructura-del-proyecto)
+
+- [Lista de actividades](#lista-de-actividades)
+
+- [Funcionalidades principales](#funcionalidades-principales)
 
 
 ## Datos de los creadores
@@ -75,15 +79,27 @@ lib/
 ## Lista de actividades
 
 ### José Peña
-- [ ] Desarrollar un widget para mostrar los animes en forma de tarjeta.
-- [ ] Crear una pantalla para visualizar la información de un anime.
-- [ ] Diseñar el logo de la aplicación.
+- [x] Desarrollar un widget para mostrar los animes en forma de tarjeta.
+- [x] Crear una pantalla para visualizar la información de un anime.
+- [x] Diseñar el logo de la aplicación.
 - [ ] Implementar las preferencias del usuario.
-- [ ] Implementar sección de noticias o novedades relacionadas con el anime.
+- [x] Implementar sección de busqueda de animes, con filtro de generos.
 
 ### Jostin Duval
-- [ ] Implementar la lógica para ver los mejores animes mediante una pantalla de exploración.
-- [ ] Crear una pantalla para visualizar la información de los personajes de un anime.
-- [ ] Implementar la lógica de favoritos utilizando una base de datos local.
+- [x] Implementar la lógica para ver los mejores animes mediante una pantalla de exploración.
+- [x] Crear una pantalla para visualizar la información de los personajes de un anime.
+- [x] Implementar la lógica de favoritos utilizando una base de datos local.
 - [ ] Agregar filtros por género, estado o año.
 - [ ] Crear una pantalla de "Acerca de la app" con créditos.
+
+## Funcionalidades principales
+
+- **Buscar animes por nombre**
+- **Explorar los animes mejor puntuados**
+- **Filtrar por género**
+- **Ver detalles completos de un anime**
+- **Reproducir trailers**
+- **Ver personajes principales**
+- **Recomendaciones basadas en animes**
+- **Soporte para modo oscuro**
+- **Interacción con apps externas**
