@@ -46,7 +46,7 @@ Las respuestas de la API se obtuvieron usando Postman. A continuación, se inclu
 - [`respuesta_detalle_fullmetal.json`](docs/api-jikan/respuesta_FMA.json)
 - [`respuesta_personajes_fullmetal.json`](docs/api-jikan/respuesta_FMA_personajes.json)
 
-La colección de pruebas puede encontrarse aquí:  
+La colección de pruebas puede encontrarse aquí:
 [`jikan_api_test_collection.json`](docs/api-jikan/Jikan%20API.postman_collection.json)
 
 
@@ -113,3 +113,7 @@ lib/
 Puedes probar la aplicación descargando el APK:
 
 [ Descargar APK (v1.0.0)](https://github.com/etoPok/dataNime/releases/download/v1.0/dataNime.apk)
+
+## Link del video
+
+[ Ver video ](https://youtu.be/vQ66mYsb0-k)
