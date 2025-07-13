@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-//import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:data_nime/utils/route_observer.dart';
 
 class AnimeTrailerPlayer extends StatefulWidget {
@@ -49,6 +49,24 @@ class _AnimeTrailerPlayerState extends State<AnimeTrailerPlayer>
     return YoutubePlayerScaffold(
       controller: _controller,
       aspectRatio: 16 / 9,
+      fullscreenOrientations: [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ],
+      defaultOrientations: [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ],
+      lockedOrientations: [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ],
       builder: (context, player) => player,
     );
   }

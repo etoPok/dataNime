@@ -15,6 +15,7 @@ import 'package:data_nime/widget/app_drawer.dart';
 import 'package:data_nime/data/services/watchmode_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:data_nime/data/services/database_helper.dart';
+import 'package:flutter/services.dart';
 
 class AnimeInfoPage extends StatefulWidget {
   final int animeId;
@@ -56,19 +57,26 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
         );
       }
 
-      _iconFavorite = await DatabaseHelper.instance.getFavoriteAnime(widget.animeId) != null
-        ? Icons.favorite : Icons.favorite_outline;
+      _iconFavorite =
+          await DatabaseHelper.instance.getFavoriteAnime(widget.animeId) != null
+              ? Icons.favorite
+              : Icons.favorite_outline;
 
-      _iconPending = await DatabaseHelper.instance.getPendingAnime(widget.animeId) != null
-        ? Icons.watch_later : Icons.watch_later_outlined;
+      _iconPending =
+          await DatabaseHelper.instance.getPendingAnime(widget.animeId) != null
+              ? Icons.watch_later
+              : Icons.watch_later_outlined;
 
-      _iconWatched = await DatabaseHelper.instance.getWatchedAnime(widget.animeId) != null
-        ? Icons.check_box : Icons.check_box_outlined;
+      _iconWatched =
+          await DatabaseHelper.instance.getWatchedAnime(widget.animeId) != null
+              ? Icons.check_box
+              : Icons.check_box_outlined;
 
       return await translateAnime(anime);
     });
-    futureRecommendations = jikanGetRecommendationsPreviewByAnime(widget.animeId);
-
+    futureRecommendations = jikanGetRecommendationsPreviewByAnime(
+      widget.animeId,
+    );
   }
 
   void _swapCharacterPreviews(int index1, int index2) {
@@ -82,6 +90,17 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
     for (int i = 0; _indexCard + i < characterPreviews.length && i < 3; i++) {
       characterPreviews[_indexCard + i] = _positionBackup[i]!;
     }
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    super.dispose();
   }
 
   @override
@@ -129,16 +148,20 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: OutlinedButton.icon(
                         onPressed: () async {
-                          final animePreview = await DatabaseHelper.instance.getFavoriteAnime(anime.id);
+                          final animePreview = await DatabaseHelper.instance
+                              .getFavoriteAnime(anime.id);
                           if (animePreview == null) {
-                            await DatabaseHelper.instance.insertFavoriteAnime(anime: anime);
+                            await DatabaseHelper.instance.insertFavoriteAnime(
+                              anime: anime,
+                            );
                             _iconFavorite = Icons.favorite;
                           } else {
-                            await DatabaseHelper.instance.deleteFavoriteAnime(anime.id);
+                            await DatabaseHelper.instance.deleteFavoriteAnime(
+                              anime.id,
+                            );
                             _iconFavorite = Icons.favorite_outline;
                           }
-                          setState(() {
-                          });
+                          setState(() {});
                         },
                         label: Icon(_iconFavorite),
                         style: OutlinedButton.styleFrom(
@@ -153,16 +176,20 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: OutlinedButton.icon(
                         onPressed: () async {
-                          final animePreview = await DatabaseHelper.instance.getWatchedAnime(anime.id);
+                          final animePreview = await DatabaseHelper.instance
+                              .getWatchedAnime(anime.id);
                           if (animePreview == null) {
-                            await DatabaseHelper.instance.insertWatchedAnime(anime: anime);
+                            await DatabaseHelper.instance.insertWatchedAnime(
+                              anime: anime,
+                            );
                             _iconWatched = Icons.check_box;
                           } else {
-                            await DatabaseHelper.instance.deleteWatchedAnime(anime.id);
+                            await DatabaseHelper.instance.deleteWatchedAnime(
+                              anime.id,
+                            );
                             _iconWatched = Icons.check_box_outlined;
                           }
-                          setState(() {
-                          });
+                          setState(() {});
                         },
                         label: Icon(_iconWatched),
                         style: OutlinedButton.styleFrom(
@@ -177,16 +204,20 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: OutlinedButton.icon(
                         onPressed: () async {
-                          final animePreview = await DatabaseHelper.instance.getPendingAnime(anime.id);
+                          final animePreview = await DatabaseHelper.instance
+                              .getPendingAnime(anime.id);
                           if (animePreview == null) {
-                            await DatabaseHelper.instance.insertPendingAnime(anime: anime);
+                            await DatabaseHelper.instance.insertPendingAnime(
+                              anime: anime,
+                            );
                             _iconPending = Icons.watch_later;
                           } else {
-                            await DatabaseHelper.instance.deletePendingAnime(anime.id);
+                            await DatabaseHelper.instance.deletePendingAnime(
+                              anime.id,
+                            );
                             _iconPending = Icons.watch_later_outlined;
                           }
-                          setState(() {
-                          });
+                          setState(() {});
                         },
                         label: Icon(_iconPending),
                         style: OutlinedButton.styleFrom(
@@ -235,8 +266,6 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-
-
 
                 if (anime.urlTrailer.isNotEmpty)
                   Column(
@@ -407,8 +436,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                     (index) {
                       CharacterPreview character = characterPreviews[index];
 
-                      if (_indexCharacter != null &&
-                          _indexCard == index) {
+                      if (_indexCharacter != null && _indexCard == index) {
                         character = characterPreviews[_indexCard];
                         final Future<Character> futureCharacter =
                             jikanGetCharacterFullById(character.id).then((
@@ -463,9 +491,15 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                  CharacterInfoPage(characterId: characterFull.id, characterFull: characterFull)
-                                              )
+                                                builder:
+                                                    (context) =>
+                                                        CharacterInfoPage(
+                                                          characterId:
+                                                              characterFull.id,
+                                                          characterFull:
+                                                              characterFull,
+                                                        ),
+                                              ),
                                             );
                                           },
                                         ),
@@ -493,8 +527,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                                                 ),
                                                 child: Text(
                                                   characterFull.about,
-                                                  style: const TextStyle(
-                                                  ),
+                                                  style: const TextStyle(),
                                                 ),
                                               ),
                                             ),
@@ -542,18 +575,27 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              bool selectedInActiveRow = _indexCharacter != null
-                                                        && index >= _indexCard && index < _indexCard+3;
+                              bool selectedInActiveRow =
+                                  _indexCharacter != null &&
+                                  index >= _indexCard &&
+                                  index < _indexCard + 3;
 
                               // restaurar antes de modificar indices
-                              if (!selectedInActiveRow) _restoreCharacterPreviews();
+                              if (!selectedInActiveRow)
+                                _restoreCharacterPreviews();
 
                               _indexCharacter = index;
                               _indexCard = (index ~/ 3) * 3;
 
                               if (!selectedInActiveRow) {
-                                for (int i = 0; _indexCard + i < characterPreviews.length && i < 3; i++) {
-                                  _positionBackup[i] = characterPreviews[_indexCard + i];
+                                for (
+                                  int i = 0;
+                                  _indexCard + i < characterPreviews.length &&
+                                      i < 3;
+                                  i++
+                                ) {
+                                  _positionBackup[i] =
+                                      characterPreviews[_indexCard + i];
                                 }
                               }
 
@@ -563,7 +605,8 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                               // [a] [x] [c] --> [x] [a] [c]
 
                               // comprobar si el presionado esta al final de la fila
-                              if (!selectedInActiveRow && (_indexCharacter! + 1) % 3 != 0) {
+                              if (!selectedInActiveRow &&
+                                  (_indexCharacter! + 1) % 3 != 0) {
                                 // personaje izquierdo del presionado se mueve al final de la fila
                                 _swapCharacterPreviews(
                                   _indexCharacter! - 1,
