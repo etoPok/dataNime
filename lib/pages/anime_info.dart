@@ -653,6 +653,7 @@ class _AnimeInfoPageState extends State<AnimeInfoPage> {
                       ),
                     ),
                   ),
+                SizedBox(height: 32),
               ],
             ),
           );

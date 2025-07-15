@@ -1,3 +1,5 @@
+import 'package:data_nime/domain/entities/anime_preview.dart';
+
 class Character {
   final int _id;
   final String _name;
@@ -6,7 +8,7 @@ class Character {
   final String _about;
   final int _favorites;
   final List<String> _nicknames;
-  final Map<int, String> _animes;
+  final List<AnimePreview> _previewAnimes;
   final Map<String, String> _voices; // key: language, value: person
 
   Character({
@@ -17,7 +19,7 @@ class Character {
     required String about,
     required int favorites,
     required List<String> nicknames,
-    required Map<int, String> animes,
+    required List<AnimePreview> previewAnimes,
     required Map<String, String> voices
   }) : _id = id,
     _name = name,
@@ -26,7 +28,7 @@ class Character {
     _about = about,
     _favorites = favorites,
     _nicknames = nicknames,
-    _animes = animes,
+    _previewAnimes = previewAnimes,
     _voices = voices;
 
   int get id { return _id; }
@@ -36,7 +38,7 @@ class Character {
   String get about { return _about; }
   int get favorites { return _favorites; }
   List<String> get nicknames { return _nicknames; }
-  Map<int, String> get animes { return _animes; }
+  List<AnimePreview> get previewAnimes { return _previewAnimes; }
   Map<String, String> get voices { return _voices; }
 
   Character copyWith({
@@ -47,7 +49,7 @@ class Character {
     String? about,
     int? favoites,
     List<String>? nicknames,
-    Map<int, String>? animes,
+    List<AnimePreview>? previewAnimes,
     Map<String, String>? voices
   }) {
     return Character(
@@ -58,7 +60,7 @@ class Character {
       about: about ?? _about,
       favorites: favoites ?? _favorites,
       nicknames: nicknames ?? _nicknames,
-      animes: animes ?? _animes,
+      previewAnimes: previewAnimes ?? _previewAnimes,
       voices: voices ?? _voices
     );
   }

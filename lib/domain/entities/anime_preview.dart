@@ -6,7 +6,7 @@ class AnimePreview {
 
   AnimePreview({
     required int id,
-    required double score,
+    double score = 0.0,
     required String urlImage,
     required String title,
   }) : _id = id,

@@ -204,10 +204,14 @@ Future<Character> jikanGetCharacterFullById(int id) async {
     nicknames.add(nickname);
   }
 
-  final Map<int, String> animes = {};
+  final List<AnimePreview> previewAnimes = [];
   for (var anime in character["anime"]) {
-    if (anime == null || anime["anime"]["mal_id"] == null) continue;
-    animes[anime["anime"]["mal_id"]] = anime["anime"]["title"] ?? "";
+    if (anime == null || anime["anime"] == null) continue;
+    previewAnimes.add(AnimePreview(
+      id: anime["anime"]["mal_id"],
+      urlImage: anime["anime"]["images"]["jpg"]["image_url"] ?? "",
+      title: anime["anime"]["title"] ?? ""
+    ));
   }
 
   return Character(
@@ -221,7 +225,7 @@ Future<Character> jikanGetCharacterFullById(int id) async {
     urlImage: character["images"]["jpg"]["image_url"] ?? "",
     favorites: character["favorites"],
     nicknames: nicknames,
-    animes: animes,
+    previewAnimes: previewAnimes,
     voices: voices,
   );
 }

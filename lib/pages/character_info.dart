@@ -2,6 +2,8 @@ import 'package:data_nime/data/services/jikan_service.dart';
 import 'package:data_nime/domain/entities/character.dart';
 import 'package:data_nime/pages/anime_info.dart';
 import 'package:data_nime/utils/google_translator.dart';
+import 'package:data_nime/widget/card_preview_anime.dart';
+import 'package:data_nime/widget/horizontal_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:data_nime/widget/app_drawer.dart';
 
@@ -26,10 +28,12 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
   @override
   void initState() {
     super.initState();
-    _futureCharacter = jikanGetCharacterFullById(widget.characterId).then((
-      character,
-    ) async {
-      _characterImages = await jikanGetCharacterImageUrls(widget.characterId);
+    _futureCharacter = jikanGetCharacterFullById(widget.characterId).then((character) async {
+      if (!mounted) return character;
+      jikanGetCharacterImageUrls(character.id).then((urls) {
+        if (!mounted) return;
+        setState(() { _characterImages = urls; });
+      });
       return await translateCharacter(character);
     });
   }
@@ -129,13 +133,9 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  "Japonés: ${character.voices["Japanese"] ?? "desconocido"}",
-                ),
+                Text("Japonés: ${character.voices["Japanese"] ?? "desconocido"}"),
                 Text("Ingles: ${character.voices["English"] ?? "desconocido"}"),
-                Text(
-                  "Español: ${character.voices["Spanish"] ?? "desconocido"}",
-                ),
+                Text("Español: ${character.voices["Spanish"] ?? "desconocido"}"),
                 Text("Coreano: ${character.voices["Korean"] ?? "desconocido"}"),
 
                 const SizedBox(height: 20),
@@ -144,23 +144,22 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  children:
-                      character.animes.entries
-                          .map(
-                            (entry) => ActionChip(
-                              label: Text(entry.value),
-                              onPressed: () async {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => AnimeInfoPage(animeId: entry.key),
-                                  ),
-                                );
-                              },
-                            ),
-                          ).toList(),
+                HorizontalCardList(
+                  itemCount: character.previewAnimes.length,
+                  itemBuilder: (context, index) {
+                    return PreviewAnimeCard(
+                      imageUrl: character.previewAnimes[index].urlImage,
+                      rating: character.previewAnimes[index].score,
+                      title: character.previewAnimes[index].title,
+                      onTap: () {
+                        Navigator.push(context,
+                          MaterialPageRoute(
+                            builder: (context) => AnimeInfoPage(animeId: character.previewAnimes[index].id)
+                          )
+                        );
+                      },
+                    );
+                  }
                 ),
                 const SizedBox(height: 20),
                 const Text(
@@ -196,6 +195,7 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                     },
                   ),
                 ),
+                SizedBox(height: 32),
               ],
             ),
           );

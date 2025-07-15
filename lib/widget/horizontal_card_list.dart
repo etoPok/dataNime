@@ -5,6 +5,8 @@ class HorizontalCardList extends StatelessWidget {
   final Widget Function(BuildContext context, int index) itemBuilder;
   final double cardWidth;
   final double cardHeight;
+  final double horizontalPadding;
+  final double spacing;
 
   const HorizontalCardList({
     super.key,
@@ -12,6 +14,8 @@ class HorizontalCardList extends StatelessWidget {
     required this.itemBuilder,
     this.cardWidth = 120.0,
     this.cardHeight = 200.0,
+    this.horizontalPadding = 16.0,
+    this.spacing = 8.0
   });
 
   @override
@@ -21,10 +25,10 @@ class HorizontalCardList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: itemCount,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(right: 8.0),
+            padding: EdgeInsets.only(right: spacing),
             child: SizedBox(
               width: cardWidth,
               height: cardHeight,
