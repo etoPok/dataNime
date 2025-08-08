@@ -1,100 +1,25 @@
-
 # dataNime
 
 **dataNime** es una aplicación móvil desarrollada en Flutter que permite a los usuarios explorar información de animes, consultar detalles como personajes, y organizar su progreso mediante listas de favoritos, vistos y pendientes. Utiliza la API Jikan (basada en MyAnimeList) para obtener datos actualizados de manera eficiente. Esta aplicación busca ofrecer una experiencia fluida y centralizada para los fanáticos del anime que desean llevar un control personalizado de lo que ven.
 
-## Indice
-
-- [Datos de los creadores](#datos-de-los-creadores)
-
-- [API Utilizada - Jikan](#api-utilizada---jikan)
-
-- [Estructura del Proyecto](#estructura-del-proyecto)
-
-- [Lista de actividades](#lista-de-actividades)
-
-- [Funcionalidades principales](#funcionalidades-principales)
-
-
-## Datos de los creadores
-
-- **Nombre**: Jostin Duval y José Peña.
-
-- **Universidad**: Universidad de Talca.
-
-- **Carrera**: Ingeniera en desarrollo de videojuegos y realidad virtual.
-
-- **Modulo**: Programacion para dispositivos moviles.
-
-- **Profesor**: Manuel Moscoso.
-
-
-## API Utilizada — Jikan
-
-Se realizaron pruebas para comprobar el funcionamiento de la API antes de integrarla en la app. Las evidencias y endpoints utilizados se detallan a continuación.
-
-### Endpoints probados:
-- Búsqueda de animes relacionados a naruto: `GET /anime?q=naruto&limit=3`
-- Detalle de un anime específico (Fullmetal Alchemist): `GET /anime/5114`
-- Personajes de un anime (Fullmetal Alchemist): `GET /anime/5114/characters`
-
-### Evidencia de pruebas
-
-Las respuestas de la API se obtuvieron usando Postman. A continuación, se incluyen ejemplos en formato `.json`:
-
-- [`respuesta_busqueda_naruto.json`](docs/api-jikan/respuesta_naruto.json)
-- [`respuesta_detalle_fullmetal.json`](docs/api-jikan/respuesta_FMA.json)
-- [`respuesta_personajes_fullmetal.json`](docs/api-jikan/respuesta_FMA_personajes.json)
-
-La colección de pruebas puede encontrarse aquí:
-[`jikan_api_test_collection.json`](docs/api-jikan/Jikan%20API.postman_collection.json)
-
+<p align="center">
+<img src="https://github.com/user-attachments/assets/c28cbdfd-d33c-4a8c-b882-2c01b7c153b3" alt="screen_home" width="200"/>
+<img src="https://github.com/user-attachments/assets/1311e5d9-6b20-405d-a703-b3811c61a08a" alt="screen_library" width="200"/>
+<img src="https://github.com/user-attachments/assets/7f085126-4ea6-40b3-a497-b5046ed30342" alt="screen_search" width="200"/>
+</p>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/b30da912-2335-47bf-8599-3747d82def65" alt="screen_anime_1" width="200"/>
+<img src="https://github.com/user-attachments/assets/968deba1-1b02-4f31-b9a5-57dc6065d182" alt="screen_anime_2" width="200"/>
+<img src="https://github.com/user-attachments/assets/595b3d8a-e142-4035-9fac-92cbd2597539" alt="scree_anime_3" width="200"/>
+</p>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/3272b9a0-8f38-432d-8ec8-9245c9a42d94" alt="screen_character_1" width="200"/>
+<img src="https://github.com/user-attachments/assets/d8043d45-7b56-43eb-a306-917f83b34ad8" alt="screen_character_2" width="200"/>
+</p>
 
 ### Referencia oficial de la API
 
 - [https://docs.api.jikan.moe/](https://docs.api.jikan.moe/)
-
-### Más detalles
-
-- [`APITEST`](APITEST.md)
-
-## Estructura del Proyecto
-
-El proyecto está organizado en capas siguiendo una arquitectura limpia y modular. A continuación, se describe el propósito de cada carpeta:
-```
-lib/
-├── data/ # Datos crudos: modelos y servicios externos
-│ ├── models/ # Modelos de datos o archivos base
-│ └── services/ # Servicios de conexión a la API Jikan
-│
-├── domain/ # Lógica central: entidades y casos de uso
-│ └── entities/ # Entidades de dominio (compartidas)
-│
-├── pages/ # Pantallas principales de la app (UI de cada vista)
-│ # Ej: HomePage, LibraryPage, PreferencesPage, etc.
-│
-├── theme/ # Configuración del tema visual: colores, estilos
-│
-├── widget/ # Widgets reutilizables (tarjetas, botones, listas)
-│
-└── main.dart # Punto de entrada de la aplicación
-```
-
-## Lista de actividades
-
-### José Peña
-- [x] Desarrollar un widget para mostrar los animes en forma de tarjeta.
-- [x] Crear una pantalla para visualizar la información de un anime.
-- [x] Diseñar el logo de la aplicación.
-- [x] Implementar conexiones con plataformas de streaming para los animes.
-- [x] Implementar sección de busqueda de animes, con filtro de generos.
-
-### Jostin Duval
-- [x] Implementar la lógica para ver los mejores animes mediante una pantalla de exploración.
-- [x] Crear una pantalla para visualizar la información de los personajes de un anime.
-- [x] Implementar la lógica de favoritos utilizando una base de datos local.
-- [x] Implementar previsualizacion de personajes dentro de la aplicacion.
-- [x] Crear una pantalla de "Acerca de la app" con créditos.
 
 ## Funcionalidades principales
 
@@ -113,7 +38,3 @@ lib/
 Puedes probar la aplicación descargando el APK:
 
 [ Descargar APK (v1.0.0)](https://github.com/etoPok/dataNime/releases/download/v1.0/dataNime.apk)
-
-## Link del video
-
-[ Ver video ](https://youtu.be/vQ66mYsb0-k)
